@@ -17,11 +17,6 @@ import lombok.NoArgsConstructor;
 public class CustomPackage implements SuperEntity{
     @Id
     private String customPacId;
-    private String startLocation;
-    private String destinationLocation;
-    private int routePerDay;
     private double amount;
     private BusType busType;
-    private double kmAmount;
-    private Status status;
 }

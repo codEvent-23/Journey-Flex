@@ -17,9 +17,4 @@ public class StaticPackage implements SuperEntity{
     @Id
     private String staticPacId;
     private String packageName;
-    private String startLocation;
-    private String destinationLocation;
-    private int routePerDay;
-    private double amount;
-    private Status status;
 }

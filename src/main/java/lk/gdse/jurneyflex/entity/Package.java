@@ -15,6 +15,11 @@ import java.util.Date;
 public class Package implements SuperEntity{
     @Id
     private String pacId;
+    private String startLocation;
+    private String destinationLocation;
+    private int routePerDay;
+    private double amount;
+    private double kmAmount;
     private Date date;
     private String expireStatus;
     @OneToOne
