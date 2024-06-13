@@ -29,4 +29,5 @@ public class Package implements SuperEntity{
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "custId", nullable = false)
     private Customer customer;
+    private String commend;
 }
