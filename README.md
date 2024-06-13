@@ -58,3 +58,9 @@ Set the server URL where the data will be sent:
   <li>Once ready, the system will prompt to scan an RFID tag.</li>
   <li>The scanned RFID tag's UID and GPS location will be displayed on the LCD and sent to the server.</li>
 </ol>
+
+<H4>Troubleshooting</H4>
+<ul>
+  <li>Ensure the RFID, GPS, and WiFi connections are correct.</li>
+  <li>Verify the WiFi credentials</li>
+</ul>
