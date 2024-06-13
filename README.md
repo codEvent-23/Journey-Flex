@@ -41,6 +41,6 @@ Ensure you have the following Arduino libraries installed:
 <H5>2.1 WiFi Credentials</H5>
 Set your WiFi SSID and password:
 
-`const char* ssid = "Your_SSID";
-const char* password = "Your_PASSWORD";`
+`const char* ssid = "Your_SSID";`
+`const char* password = "Your_PASSWORD";`
 
