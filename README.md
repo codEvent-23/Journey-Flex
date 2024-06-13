@@ -45,3 +45,16 @@ Set your WiFi SSID and password:
 <br>
 `const char* password = "Your_PASSWORD";`
 
+
+<H5>2.2 Server URL</H5>
+Set the server URL where the data will be sent:
+
+`http.begin("https://your-server-url.com");`
+
+<H4>Usage</H4>
+<ol>
+  <li>Power the ESP32 and ensure all components are connected as per the circuit diagram.</li>
+  <li>The system will connect to the WiFi and wait for a valid GPS signal.</li>
+  <li>Once ready, the system will prompt to scan an RFID tag.</li>
+  <li>The scanned RFID tag's UID and GPS location will be displayed on the LCD and sent to the server.</li>
+</ol>
