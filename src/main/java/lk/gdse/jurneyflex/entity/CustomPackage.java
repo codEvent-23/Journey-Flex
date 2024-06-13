@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lk.gdse.jurneyflex.ENUM.BusType;
+import lk.gdse.jurneyflex.ENUM.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,5 @@ public class CustomPackage implements SuperEntity{
     private double amount;
     private BusType busType;
     private double kmAmount;
+    private Status status;
 }

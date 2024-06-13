@@ -3,6 +3,7 @@ package lk.gdse.jurneyflex.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lk.gdse.jurneyflex.ENUM.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,8 +16,10 @@ import lombok.NoArgsConstructor;
 public class StaticPackage implements SuperEntity{
     @Id
     private String staticPacId;
+    private String packageName;
     private String startLocation;
     private String destinationLocation;
     private int routePerDay;
     private double amount;
+    private Status status;
 }
