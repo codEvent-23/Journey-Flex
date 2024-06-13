@@ -15,6 +15,10 @@ This project uses an RFID reader, GPS module, and WiFi to track the location of 
   <li>WiFi connection</li>
 </ul>
 
+<H3>Libraries Required</H3>
+Ensure you have the following Arduino libraries installed:
+
+
 <H3>Connections</H3>
 
 ![Picture1](https://github.com/codEvent-23/Journey-Flex/assets/123743742/cdda4526-ec59-4152-827c-250961465d90)
