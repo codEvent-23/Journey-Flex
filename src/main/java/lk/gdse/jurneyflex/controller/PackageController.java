@@ -18,11 +18,10 @@ public class PackageController {
         return "Healthy";
     }
 
-    @PostMapping("/addStaticPackage")
-    public ResponseEntity<?> addStaticPackage(@RequestBody PackageDTO packageDTO){
-        packageService.addPackage(packageDTO);
-        packageDTO.setPackageType(PackageType.STATIC_PACKAGE);
-        return ResponseEntity.ok("Static Package Added");
+    @PostMapping("/updatePackageStatus")
+    public ResponseEntity<?> updatePackageStatus(String id){
+        packageService.updateStatus(id);
+        return ResponseEntity.ok("Package Updated");
     }
 
     @PostMapping("/addCustomPackage")
