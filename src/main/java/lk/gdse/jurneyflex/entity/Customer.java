@@ -25,5 +25,5 @@ public class Customer implements SuperEntity{
     private List<Card> cardList;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "packId", nullable = false)
-    private Package packages;
+    private Package packages; // test
 }
