@@ -18,10 +18,18 @@ public class PackageController {
         return "Healthy";
     }
 
+<<<<<<< HEAD
     @PostMapping("/updatePackageStatus")
     public ResponseEntity<?> updatePackageStatus(@PathVariable("id") String id){
         packageService.updateStatus(id);
         return ResponseEntity.ok("Package Updated");
+=======
+    @PostMapping("/addStaticPackage")
+    public ResponseEntity<?> addStaticPackage(@RequestBody PackageDTO packageDTO){
+        packageDTO.setPackageType(PackageType.STATIC_PACKAGE);
+        packageService.addPackage(packageDTO);
+        return ResponseEntity.ok("Static Package Added");
+>>>>>>> d245d97 (add updateStatus method)
     }
 
     @PostMapping("/addCustomPackage")
