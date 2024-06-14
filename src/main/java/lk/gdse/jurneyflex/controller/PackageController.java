@@ -19,7 +19,7 @@ public class PackageController {
     }
 
     @PostMapping("/updatePackageStatus")
-    public ResponseEntity<?> updatePackageStatus(String id){
+    public ResponseEntity<?> updatePackageStatus(@PathVariable("id") String id){
         packageService.updateStatus(id);
         return ResponseEntity.ok("Package Updated");
     }
