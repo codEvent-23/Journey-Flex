@@ -1,6 +1,7 @@
 package lk.gdse.jurneyflex.dto;
 
 
+import lk.gdse.jurneyflex.ENUM.BusType;
 import lk.gdse.jurneyflex.ENUM.PackageType;
 import lk.gdse.jurneyflex.ENUM.Status;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,8 @@ public class PackageDTO implements SuperDTO {
     private double amount;
     private double kmAmount;
     private Date date;
-    private String expireStatus;
+    private Date expire;
     private PackageType packageType;
     private Status status;
+    private BusType busType;
 }

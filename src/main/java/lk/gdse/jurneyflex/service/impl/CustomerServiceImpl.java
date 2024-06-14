@@ -4,13 +4,17 @@ import jakarta.transaction.Transactional;
 import lk.gdse.jurneyflex.conversion.ConversionData;
 import lk.gdse.jurneyflex.dto.CustomerDTO;
 import lk.gdse.jurneyflex.entity.Customer;
+import lk.gdse.jurneyflex.entity.Package;
 import lk.gdse.jurneyflex.exeption.NotFoundException;
 import lk.gdse.jurneyflex.repository.CustomerServiceDao;
+import lk.gdse.jurneyflex.repository.PackageServiceDao;
 import lk.gdse.jurneyflex.service.CustomerService;
+import lk.gdse.jurneyflex.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -19,6 +23,9 @@ public class CustomerServiceImpl implements CustomerService {
     private ConversionData convert;
     @Autowired
     private CustomerServiceDao customerServiceDao;
+    @Autowired
+    private PackageServiceDao packageServiceDao;
+
     @Override
     public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
         customerDTO.setCustId(generateNextCustomerId());

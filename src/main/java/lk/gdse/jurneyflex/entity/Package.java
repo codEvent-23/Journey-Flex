@@ -1,6 +1,7 @@
 package lk.gdse.jurneyflex.entity;
 
 import jakarta.persistence.*;
+import lk.gdse.jurneyflex.ENUM.BusType;
 import lk.gdse.jurneyflex.ENUM.PackageType;
 import lk.gdse.jurneyflex.ENUM.Status;
 import lombok.AllArgsConstructor;
@@ -26,8 +27,12 @@ public class Package implements SuperEntity{
     private double amount;
     private double kmAmount;
     private Date date;
-    private String expireStatus;
+    private Date expireDate;
+    @Enumerated(EnumType.STRING)
+    private BusType busType;
+    @Enumerated(EnumType.STRING)
     private PackageType packageType;
+    @Enumerated(EnumType.STRING)
     private Status status;
     @OneToMany(mappedBy = "packages", cascade = CascadeType.ALL)
     private List<Customer> customerList;

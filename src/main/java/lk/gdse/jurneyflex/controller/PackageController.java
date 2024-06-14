@@ -18,9 +18,15 @@ public class PackageController {
         return "Healthy";
     }
 
-    @PostMapping("/updatePackageStatus")
-    public ResponseEntity<?> updatePackageStatus(@RequestBody String id){
-        packageService.updateStatus(id);
+    @PostMapping("/addPackage")
+    public ResponseEntity<?> addPackage(@RequestBody PackageDTO packageDTO){
+        packageService.addPackage(packageDTO);
+        return ResponseEntity.ok("Package Added");
+    }
+
+    @PostMapping("/updatePackageStatus/{id}/{cusIID}")
+    public ResponseEntity<?> updatePackageStatus(@PathVariable("id") String id, @PathVariable("cusIID") String cusIID){
+        packageService.updateStatus(id,cusIID);
         return ResponseEntity.ok("Package Updated");
     }
 

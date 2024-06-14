@@ -5,9 +5,12 @@ import jakarta.transaction.Transactional;
 import lk.gdse.jurneyflex.ENUM.Status;
 import lk.gdse.jurneyflex.conversion.ConversionData;
 import lk.gdse.jurneyflex.dto.PackageDTO;
+import lk.gdse.jurneyflex.entity.Customer;
 import lk.gdse.jurneyflex.entity.Package;
 import lk.gdse.jurneyflex.exeption.NotFoundException;
+import lk.gdse.jurneyflex.repository.CustomerServiceDao;
 import lk.gdse.jurneyflex.repository.PackageServiceDao;
+import lk.gdse.jurneyflex.service.CustomerService;
 import lk.gdse.jurneyflex.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,18 +27,34 @@ public class PackageServiceImpl implements PackageService {
     private PackageServiceDao packageServiceDao;
     @Autowired
     private ConversionData convert;
+
+    @Autowired
+    private CustomerServiceDao customerServiceDao;
+
+    @Autowired
+    private CustomerService customerService;
+
     @Override
     public void addPackage(PackageDTO packageDTO) {
         convert.packagetoPackageDto(packageServiceDao.save(convert.packageDtoToPackage(packageDTO)));
     }
 
     @Override
-    public void updateStatus(String id) {
+    public void updateStatus(String id, String cusID) {
+        Package package1 = null;
+
         if (!packageServiceDao.existsById(id)) throw new NotFoundException("Package not found");
         Optional<Package> byId = packageServiceDao.findById(id);
         if(byId.isPresent()){
-            Package package1 = byId.get();
+            package1 = byId.get();
             package1.setStatus(Status.ACTIVE);
+        }
+
+        if (!customerServiceDao.existsById(cusID)) throw new NotFoundException("Customer not found");
+        Optional<Customer> byCusId = customerServiceDao.findById(cusID);
+        if(byCusId.isPresent()){
+            Customer customer = byCusId.get();
+            customer.setPackages(package1);
         }
     }
 

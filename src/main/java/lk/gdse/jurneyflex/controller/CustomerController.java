@@ -19,6 +19,7 @@ public class CustomerController {
     public String healthTest(){
         return "Healthy";
     }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addCustomer(@Validated @RequestBody CustomerDTO customerDTO, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
