@@ -1,11 +1,14 @@
 package lk.gdse.jurneyflex.entity;
 
 import jakarta.persistence.*;
+import lk.gdse.jurneyflex.ENUM.PackageType;
+import lk.gdse.jurneyflex.ENUM.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,18 +18,17 @@ import java.util.Date;
 public class Package implements SuperEntity{
     @Id
     private String pacId;
-    private String startLocation;
-    private String destinationLocation;
+    private String startLat;
+    private String startLong;
+    private String destinationLat;
+    private String destinationLong;
     private int routePerDay;
     private double amount;
     private double kmAmount;
     private Date date;
     private String expireStatus;
-    @OneToOne
-    private StaticPackage staticPackage;
-    @OneToOne
-    private CustomPackage customPackage;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "custId", nullable = false)
-    private Customer customer;
+    private PackageType packageType;
+    private Status status;
+    @OneToMany(mappedBy = "packages", cascade = CascadeType.ALL)
+    private List<Customer> customerList;
 }

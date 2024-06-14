@@ -2,6 +2,7 @@ package lk.gdse.jurneyflex.conversion;
 
 import lk.gdse.jurneyflex.dto.*;
 import lk.gdse.jurneyflex.entity.*;
+import lk.gdse.jurneyflex.entity.Package;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -33,5 +34,17 @@ public class ConversionData {
 
     public List<OwnerDetailsDTO> convertToOwnerDetailsDtoList(List<OwnerDetails> ownerDetailsList){
         return modelMapper.map(ownerDetailsList, List.class);
+    }
+
+    public PackageDTO packagetoPackageDto(Package pack){
+        return modelMapper.map(pack, PackageDTO.class);
+    }
+
+    public Package packageDtoToPackage(PackageDTO packDTO){
+        return modelMapper.map(packDTO, Package.class);
+    }
+
+    public List<PackageDTO> convertPackageDtoList(List<Package> packageList){
+        return modelMapper.map(packageList, List.class);
     }
 }

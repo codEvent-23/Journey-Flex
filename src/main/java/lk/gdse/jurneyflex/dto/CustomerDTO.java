@@ -24,4 +24,5 @@ public class CustomerDTO implements SuperDTO {
     @NotBlank(message = "Contact No cannot be blank")
     @Pattern(regexp = "^\\+?[0-9\\-\\s]+$", message = "Invalid contact number format")
     private String contactNo;
+    private String pacId;
 }

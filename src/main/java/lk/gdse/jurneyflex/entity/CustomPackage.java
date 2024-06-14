@@ -17,6 +17,5 @@ import lombok.NoArgsConstructor;
 public class CustomPackage implements SuperEntity{
     @Id
     private String customPacId;
-    private double amount;
     private BusType busType;
 }
