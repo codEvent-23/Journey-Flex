@@ -47,17 +47,29 @@ public class PackageServiceImpl implements PackageService {
         Optional<Package> byId = packageServiceDao.findById(id);
         if(byId.isPresent()){
             package1 = byId.get();
-            package1.setStatus(Status.ACTIVE);
-        }
 
-        if (!customerServiceDao.existsById(cusID)) throw new NotFoundException("Customer not found");
-        Optional<Customer> byCusId = customerServiceDao.findById(cusID);
-        if(byCusId.isPresent()){
-            Customer customer = byCusId.get();
-            customer.setPackages(package1);
+            if (package1.getStatus().equals(Status.ACTIVE)) {
+                package1.setStatus(Status.DEACTIVATE);
+                setNullCustomer(cusID);
+            }else {
+                package1.setStatus(Status.ACTIVE);
+                if (!customerServiceDao.existsById(cusID)) throw new NotFoundException("Customer not found");
+                Optional<Customer> byCusId = customerServiceDao.findById(cusID);
+                if(byCusId.isPresent()){
+                    Customer customer = byCusId.get();
+                    customer.setPackages(package1);
+                }
+            }
         }
     }
 
+    private void setNullCustomer(String cusID) {
+        Optional<Customer> byCusId = customerServiceDao.findById(cusID);
+        if(byCusId.isPresent()){
+            Customer customer = byCusId.get();
+            customer.setPackages(null);
+        }
+    }
 }
 
 
