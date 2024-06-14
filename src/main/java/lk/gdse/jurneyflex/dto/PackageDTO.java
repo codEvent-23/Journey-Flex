@@ -4,6 +4,7 @@ package lk.gdse.jurneyflex.dto;
 import lk.gdse.jurneyflex.ENUM.BusType;
 import lk.gdse.jurneyflex.ENUM.PackageType;
 import lk.gdse.jurneyflex.ENUM.Status;
+import lk.gdse.jurneyflex.entity.Bus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class PackageDTO implements SuperDTO {
     private Date date;
     private Date expire;
     private PackageType packageType;
+    private BusType busType;
     private Status status;
     private BusType busType;
 }

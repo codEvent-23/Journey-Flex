@@ -1,5 +1,5 @@
 package lk.gdse.jurneyflex.ENUM;
 
 public enum Status {
-    ACTIVE, DEACTIVATE
+    ACTIVE, DEACTIVATE,NOT_ACTIVE
 }
