@@ -18,22 +18,17 @@ import java.util.List;
 @Table(name = "package")
 public class Package implements SuperEntity{
     @Id
-    private String pacId;
+    private String packId;
     private String startLat;
     private String startLong;
     private String destinationLat;
     private String destinationLong;
     private int routePerDay;
-    private double amount;
-    private double kmAmount;
-    private Date date;
-    private Date expireDate;
+    private double kmAmountPerDay;
     @Enumerated(EnumType.STRING)
     private BusType busType;
     @Enumerated(EnumType.STRING)
     private PackageType packageType;
-    @Enumerated(EnumType.STRING)
-    private Status status;
     @OneToMany(mappedBy = "packages", cascade = CascadeType.ALL)
-    private List<Customer> customerList;
+    private List<PackageDetails> packageDetailsList;
 }

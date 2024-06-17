@@ -23,7 +23,6 @@ public class Customer implements SuperEntity{
     private String contactNo;
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Card> cardList;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "packId")
-    private Package packages;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
+    private List<PackageDetails> packageDetails;
 }
