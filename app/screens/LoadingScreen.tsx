@@ -1,13 +1,14 @@
 import React, {useEffect} from 'react';
 import { View, Image, Text } from 'react-native';
-import {useNavigation} from "@react-navigation/native";
+import {ParamListBase, useNavigation} from "@react-navigation/native";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 
 const LoadingScreen = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
     useEffect(() => {
         setTimeout(() => {
-            // navigation.navigate('Contact');
+            navigation.navigate('OTPScreen');
         }, 3000);
     }, []);
 

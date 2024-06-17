@@ -10,8 +10,8 @@ export default function App() {
   return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name='OTP screen' component={OTPVerificationScreen}/>
-          <Stack.Screen name='Loading screen' component={LoadingScreen}/>
+            <Stack.Screen name='LoadingScreen' component={LoadingScreen}/>
+            <Stack.Screen name='OTPScreen' component={OTPVerificationScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
   );
