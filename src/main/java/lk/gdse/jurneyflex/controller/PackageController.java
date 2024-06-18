@@ -76,4 +76,10 @@ public class PackageController {
 
         return ResponseEntity.ok("Static Package Activated");
     }
+
+    @PostMapping("/deactivatePackage")
+    public ResponseEntity<?> deactivatePackage(@RequestParam String packId, @RequestParam String custId) {
+        packageDetailsService.deactivatePackageBeforeMidnight(packId, custId);
+        return ResponseEntity.ok("Package deactivated successfully before midnight");
+    }
 }

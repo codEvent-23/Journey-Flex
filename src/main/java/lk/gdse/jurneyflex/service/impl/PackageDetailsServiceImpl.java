@@ -7,6 +7,7 @@ import lk.gdse.jurneyflex.dto.PackageDTO;
 import lk.gdse.jurneyflex.entity.Customer;
 import lk.gdse.jurneyflex.entity.Package;
 import lk.gdse.jurneyflex.entity.PackageDetails;
+import lk.gdse.jurneyflex.exeption.NotFoundException;
 import lk.gdse.jurneyflex.repository.PackageDetailsServiceDao;
 import lk.gdse.jurneyflex.repository.PackageServiceDao;
 import lk.gdse.jurneyflex.service.CustomerService;
@@ -15,7 +16,10 @@ import lk.gdse.jurneyflex.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -70,4 +74,24 @@ public class PackageDetailsServiceImpl implements PackageDetailsService {
         packageDetails.setStatus(Status.ACTIVE);
         packageDetailsServiceDao.save(packageDetails);
     }
+
+    @Override
+    public void deactivatePackageBeforeMidnight(String packId, String custId) {
+        Optional<PackageDetails> packageDetailsOpt = packageDetailsServiceDao.findByPackagesPackIdAndCustomerCustId(packId, custId);
+        if (packageDetailsOpt.isPresent()) {
+            PackageDetails packageDetails = packageDetailsOpt.get();
+            System.out.println("Helllllllllllllooooo " + packageDetails.getActiveDate());
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime activeDate = LocalDateTime.parse(packageDetails.getActiveDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+            if (now.isBefore(activeDate.toLocalDate().atStartOfDay().plusDays(1))) {
+                packageDetails.setStatus(Status.DEACTIVATE);
+                packageDetailsServiceDao.save(packageDetails);
+            }
+        } else {
+            throw new NotFoundException("Active package details not found for packId: " + packId + " and custId: " + custId);
+        }
+    }
+
+
 }

@@ -7,6 +7,7 @@ import lk.gdse.jurneyflex.conversion.ConversionData;
 import lk.gdse.jurneyflex.dto.PackageDTO;
 import lk.gdse.jurneyflex.entity.Customer;
 import lk.gdse.jurneyflex.entity.Package;
+import lk.gdse.jurneyflex.entity.PackageDetails;
 import lk.gdse.jurneyflex.exeption.NotFoundException;
 import lk.gdse.jurneyflex.repository.CustomerServiceDao;
 import lk.gdse.jurneyflex.repository.PackageServiceDao;
