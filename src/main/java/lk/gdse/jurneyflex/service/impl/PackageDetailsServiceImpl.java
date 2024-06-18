@@ -80,7 +80,6 @@ public class PackageDetailsServiceImpl implements PackageDetailsService {
         Optional<PackageDetails> packageDetailsOpt = packageDetailsServiceDao.findByPackagesPackIdAndCustomerCustId(packId, custId);
         if (packageDetailsOpt.isPresent()) {
             PackageDetails packageDetails = packageDetailsOpt.get();
-            System.out.println("Helllllllllllllooooo " + packageDetails.getActiveDate());
             LocalDateTime now = LocalDateTime.now();
             LocalDateTime activeDate = LocalDateTime.parse(packageDetails.getActiveDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
