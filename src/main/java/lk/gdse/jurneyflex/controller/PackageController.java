@@ -1,11 +1,15 @@
 package lk.gdse.jurneyflex.controller;
 
 import lk.gdse.jurneyflex.ENUM.PackageType;
+import lk.gdse.jurneyflex.ENUM.Status;
 import lk.gdse.jurneyflex.dto.PackageDTO;
+import lk.gdse.jurneyflex.entity.Customer;
+import lk.gdse.jurneyflex.entity.PackageDetails;
 import lk.gdse.jurneyflex.service.PackageDetailsService;
 import lk.gdse.jurneyflex.service.PackageService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -13,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/package")
@@ -81,5 +86,10 @@ public class PackageController {
     public ResponseEntity<?> deactivatePackage(@RequestParam String packId, @RequestParam String custId) {
         packageDetailsService.deactivatePackageBeforeMidnight(packId, custId);
         return ResponseEntity.ok("Package deactivated successfully before midnight");
+    }
+
+    @Scheduled(cron = "0 0 8 * * *") // Runs every day at 8 AM |||||||| cron = "0 10 17 * * *"  Runs every day at 5:10 PM
+    public String expirePackageNotifyBeforeSevenDays() {
+        return packageDetailsService.expirePackageNotifyBeforeSevenDays();
     }
 }

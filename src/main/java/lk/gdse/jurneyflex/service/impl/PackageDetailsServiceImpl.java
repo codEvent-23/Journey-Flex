@@ -14,11 +14,13 @@ import lk.gdse.jurneyflex.service.CustomerService;
 import lk.gdse.jurneyflex.service.PackageDetailsService;
 import lk.gdse.jurneyflex.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -92,5 +94,23 @@ public class PackageDetailsServiceImpl implements PackageDetailsService {
         }
     }
 
+    @Override
+    public String expirePackageNotifyBeforeSevenDays() {
+        List<PackageDetails> packageDetailsList = packageDetailsServiceDao.findByStatus(Status.ACTIVE);
+        LocalDateTime now = LocalDateTime.now();
 
+        for (PackageDetails packageDetails : packageDetailsList) {
+            LocalDateTime expireDate = LocalDateTime.parse(packageDetails.getExpireDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            LocalDateTime notifyDate = expireDate.minusDays(7);
+
+            if (now.toLocalDate().isEqual(notifyDate.toLocalDate())) {
+                return sendNotification(packageDetails.getCustomer(), packageDetails.getExpireDate());
+            }
+        }
+        return null;
+    }
+
+    private String sendNotification(Customer customer, String expireDate) {
+        return "Dear " + customer.getF_name() + " " + customer.getL_name() + ", Your plan will expire on " + expireDate + ". Log on to the JourneyFlex app to reactivate the plan.";
+    }
 }
