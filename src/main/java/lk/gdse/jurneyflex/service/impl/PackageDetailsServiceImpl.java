@@ -104,13 +104,31 @@ public class PackageDetailsServiceImpl implements PackageDetailsService {
             LocalDateTime notifyDate = expireDate.minusDays(7);
 
             if (now.toLocalDate().isEqual(notifyDate.toLocalDate())) {
-                return sendNotification(packageDetails.getCustomer(), packageDetails.getExpireDate());
+                return sendExpirePackageNotifyBeforeSevenDays(packageDetails.getCustomer(), packageDetails.getExpireDate());
             }
         }
         return null;
     }
 
-    private String sendNotification(Customer customer, String expireDate) {
-        return "Dear " + customer.getF_name() + " " + customer.getL_name() + ", Your plan will expire on " + expireDate + ". Log on to the JourneyFlex app to reactivate the plan.";
+    private String sendExpirePackageNotifyBeforeSevenDays(Customer customer, String expireDate) {
+        return "Dear " + customer.getF_name() + " " + customer.getL_name() + ", Your plan has expired on " + expireDate + ". Log on to the JourneyFlex app to reactivate the plan.";
+    }
+
+    @Override
+    public String expiredPackagesNotification() {
+        List<PackageDetails> packageDetailsList = packageDetailsServiceDao.findByStatus(Status.ACTIVE);
+
+        for (PackageDetails packageDetails : packageDetailsList) {
+            if (LocalDateTime.now().toLocalDate().isEqual(LocalDateTime.parse(packageDetails.getExpireDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toLocalDate())) {
+                packageDetails.setStatus(Status.EXPIRED);
+                packageDetailsServiceDao.save(packageDetails);
+                return sendExpiredPackagesNotification(packageDetails.getCustomer());
+            }
+        }
+        return null;
+    }
+
+    private String sendExpiredPackagesNotification(Customer customer) {
+        return "Dear " + customer.getF_name() + " " + customer.getL_name() + ", Your plan has been expired. Log on to the JourneyFlex app to reactivate the plan.";
     }
 }

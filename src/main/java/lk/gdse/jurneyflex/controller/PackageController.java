@@ -92,4 +92,9 @@ public class PackageController {
     public String expirePackageNotifyBeforeSevenDays() {
         return packageDetailsService.expirePackageNotifyBeforeSevenDays();
     }
+
+    @Scheduled(cron = "0 10 0 * * *") // Runs every day at 12:10 AM
+    public String expiredPackagesNotification() {
+        return packageDetailsService.expiredPackagesNotification();
+    }
 }

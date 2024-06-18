@@ -10,4 +10,5 @@ public interface PackageDetailsService {
     void activeStaticPackage(String packId, String custId, String activeDate, String expirationDate);
     void deactivatePackageBeforeMidnight(String packId, String custId);
     String expirePackageNotifyBeforeSevenDays();
+    String expiredPackagesNotification();
 }
