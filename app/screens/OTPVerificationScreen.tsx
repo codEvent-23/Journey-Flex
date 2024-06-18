@@ -2,8 +2,12 @@ import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, StyleShee
 import NextButton from "../components/NextButton";
 import OTPTextInput from "react-native-otp-textinput";
 import {useRef, useState} from "react";
+import {ParamListBase, useNavigation} from "@react-navigation/native";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 
 const OTPVerificationScreen = () => {
+
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
     const [confirm, setConfirm] = useState(false);
     const [code, setCode] = useState('');
@@ -15,6 +19,7 @@ const OTPVerificationScreen = () => {
 
     function handleVerifyCodeSubmit() {
         console.log(code);
+        navigation.navigate('ProfileCreationScreen');
     }
 
     return (
@@ -72,7 +77,7 @@ const OTPVerificationScreen = () => {
                         </View>
                     </View>
                     <Text className='text-center mb-6 px-16'>Please enter the code we sent to your phone</Text>
-                    <NextButton title='Next' handler={handleMobileNumberSubmit}/>
+                    <NextButton title='Next' handler={handleVerifyCodeSubmit}/>
                 </View>
             }
         </SafeAreaView>
