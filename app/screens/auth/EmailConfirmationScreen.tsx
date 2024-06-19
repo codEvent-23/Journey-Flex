@@ -15,7 +15,7 @@ const EmailConfirmationScreen = () => {
     }, []);
 
     return (
-        <SafeAreaView className="flex-1 bg-white px-5 py-12">
+        <SafeAreaView className="flex-1 px-5 py-12 bg-background">
             <View className="items-center my-16">
                 <Image
                     source={require('../../../assets/images/email.png')}

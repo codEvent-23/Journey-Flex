@@ -19,7 +19,7 @@ const ProfileCreationScreen = () => {
     }
 
     return (
-        <SafeAreaView className='flex-1'>
+        <SafeAreaView className='flex-1 bg-background'>
             <Image
                 className='absolute top-12'
                 source={require('../../../assets/images/profileScreenBg.png')}/>

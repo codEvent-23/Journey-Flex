@@ -24,7 +24,7 @@ const OTPVerificationScreen = () => {
     }
 
     return (
-        <SafeAreaView className="flex-1 justify-center items-center bg-white">
+        <SafeAreaView className="flex-1 justify-center items-center bg-background">
             {!confirm ?
                 <View className="w-10/12">
                     <Text className="text-center text-2xl mb-8">Enter your mobile number</Text>
