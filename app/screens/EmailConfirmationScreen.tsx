@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
+import {View, Image, Text, TouchableOpacity, SafeAreaView} from "react-native";
 
 const EmailConfirmationScreen = () => {
     const [email, setEmail] = useState('email@gmail.com');
 
     return (
-        <View className="flex-1 bg-white px-5 py-12">
+        <SafeAreaView className="flex-1 bg-white px-5 py-12">
             <View className="items-center my-16">
                 <Image
-                    source={require('../../assets/email.png')}
+                    source={require('../../assets/images/email.png')}
                     className="w-64 h-48 mr-2"
                     resizeMode="contain"
                 />
@@ -31,7 +31,7 @@ const EmailConfirmationScreen = () => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 

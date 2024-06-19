@@ -1,10 +1,12 @@
-import React, {useEffect} from 'react';
-import { View, Image, Text } from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {Image, Text, SafeAreaView, View} from 'react-native';
 import {ParamListBase, useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import LottieView from 'lottie-react-native';
 
 const LoadingScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+    const animation = useRef(null);
 
     useEffect(() => {
         setTimeout(() => {
@@ -13,16 +15,28 @@ const LoadingScreen = () => {
     }, []);
 
     return (
-        <View className="flex-1 justify-center items-center bg-primary">
+        <SafeAreaView className="flex-1 justify-center items-center bg-primary">
             <Image
-                source={require('../../assets/favicon.png')}
+                source={require('../../assets/images/favicon.png')}
                 className="w-96 h-69"
                 resizeMode="contain"
             />
+            <View className='absolute bottom-28'>
+                <LottieView
+                    autoPlay
+                    loop={true}
+                    ref={animation}
+                    style={{
+                        width: 150,
+                        height: 200,
+                    }}
+                    source={require('../../assets/animations/loading-animation.json')}
+                />
+            </View>
             <Text className="absolute bottom-10 text-sm text-white">
                 All rights 2024 @Journey Flex
             </Text>
-        </View>
+        </SafeAreaView>
     );
 };
 

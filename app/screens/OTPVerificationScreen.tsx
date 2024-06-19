@@ -29,7 +29,7 @@ const OTPVerificationScreen = () => {
                     <Text className="text-center text-2xl mb-8">Enter your mobile number</Text>
                     <View className="flex-row items-center border border-primary bg-[#1877F21A] rounded p-2 mb-6">
                         <Image
-                            source={require('../../assets/flag.png')}
+                            source={require('../../assets/images/flag.png')}
                             className="w-8 h-8 mr-2"
                         />
                         <Text className="text-lg">+94</Text>
@@ -41,7 +41,7 @@ const OTPVerificationScreen = () => {
                     </View>
                     <View className="flex-row justify-center items-center mb-6">
                         <Image
-                            source={require('../../assets/policy.png')}
+                            source={require('../../assets/images/policy.png')}
                             className="w-6 h-6 mr-2"
                         />
                         <View>
