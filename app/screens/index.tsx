@@ -6,7 +6,8 @@ enum SCREENS {
     WELCOME = 'WelcomeScreen',
     TABS = 'TabScreen',
     HOME = 'HomeScreen',
-    ACTIVITY = 'ActivityScreen'
+    ACTIVITY = 'ActivityScreen',
+    PROFILE = 'ProfileScreen',
 }
 
 export default SCREENS;

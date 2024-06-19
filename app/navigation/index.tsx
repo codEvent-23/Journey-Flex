@@ -9,11 +9,12 @@ import {NavigationContainer} from "@react-navigation/native";
 import HomeScreen from "../screens/tabs/HomeScreen";
 import ActivityScreen from "../screens/tabs/ActivityScreen";
 import SCREENS from "../screens";
+import ProfileScreen from "../screens/tabs/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const StackNavigation = () => {
+const AppNavigation = () => {
      return (
          <NavigationContainer>
              <Stack.Navigator initialRouteName={SCREENS.LOAD} screenOptions={{headerShown: false}}>
@@ -33,8 +34,9 @@ const TabNavigation = () => {
         <Tab.Navigator initialRouteName={SCREENS.HOME}>
             <Tab.Screen name={SCREENS.HOME} component={HomeScreen}/>
             <Tab.Screen name={SCREENS.ACTIVITY} component={ActivityScreen}/>
+            <Tab.Screen name={SCREENS.PROFILE} component={ProfileScreen}/>
         </Tab.Navigator>
     )
 }
 
-export default StackNavigation;
+export default AppNavigation;
