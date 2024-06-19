@@ -10,6 +10,7 @@ import HomeScreen from "../screens/tabs/HomeScreen";
 import ActivityScreen from "../screens/tabs/ActivityScreen";
 import SCREENS from "../screens";
 import ProfileScreen from "../screens/tabs/ProfileScreen";
+import {Image} from "react-native";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,10 +32,86 @@ const AppNavigation = () => {
 
 const TabNavigation = () => {
     return (
-        <Tab.Navigator initialRouteName={SCREENS.HOME}>
-            <Tab.Screen name={SCREENS.HOME} component={HomeScreen}/>
-            <Tab.Screen name={SCREENS.ACTIVITY} component={ActivityScreen}/>
-            <Tab.Screen name={SCREENS.PROFILE} component={ProfileScreen}/>
+        <Tab.Navigator
+            initialRouteName={SCREENS.HOME}
+            screenOptions={{
+                headerShown: false,
+                tabBarStyle: {
+                    height: 70,
+                    paddingBottom: 10,
+                    paddingTop: 10,
+                    backgroundColor: '#F5F7FA'
+                }
+            }}
+        >
+            <Tab.Screen
+                name={SCREENS.HOME}
+                component={HomeScreen}
+                options={{
+                    title: 'Home',
+                    tabBarIcon: ({focused}) => (
+                        <Image
+                            source={
+                                focused ?
+                                    require('../../assets/images/tabIcons/home-focused.png') :
+                                    require('../../assets/images/tabIcons/home.png')
+                            }
+                            style={{
+                                height: 30,
+                                width: 30,
+                                tintColor: focused ? '#1877F2' : '#757575',
+                            }}
+                        />
+                    ),
+                    tabBarActiveTintColor: '#1877F2',
+                    tabBarInactiveTintColor: '#757575'
+                }}
+            />
+            <Tab.Screen
+                name={SCREENS.ACTIVITY}
+                component={ActivityScreen}
+                options={{
+                    title: 'Activities',
+                    tabBarIcon: ({focused}) => (
+                        <Image
+                            source={
+                                focused ?
+                                    require('../../assets/images/tabIcons/activity-focused.png') :
+                                    require('../../assets/images/tabIcons/activity.png')
+                            }
+                            style={{
+                                height: 30,
+                                width: 30,
+                            }}
+                        />
+                    ),
+                    tabBarActiveTintColor: '#1877F2',
+                    tabBarInactiveTintColor: '#757575'
+                }}
+            />
+            <Tab.Screen
+                name={SCREENS.PROFILE}
+                component={ProfileScreen}
+                options={{
+                    title: 'Profile',
+                    tabBarIcon: ({focused}) => (
+                        <Image
+                            source={
+                                focused ?
+                                    require('../../assets/images/tabIcons/profile-focused.png') :
+                                    require('../../assets/images/tabIcons/profile.png')
+                            }
+                            style={{
+                                height: 30,
+                                width: 30,
+                                tintColor: focused ? '#1877F2' : '#757575',
+                            }}
+                        />
+                    ),
+                    tabBarActiveTintColor: '#1877F2',
+                    tabBarInactiveTintColor: '#757575'
+                }}
+            />
         </Tab.Navigator>
     )
 }
