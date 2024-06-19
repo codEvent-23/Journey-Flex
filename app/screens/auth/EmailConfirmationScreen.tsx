@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {View, Image, Text, TouchableOpacity, SafeAreaView} from "react-native";
+import {ParamListBase, useNavigation} from "@react-navigation/native";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import SCREENS from "../index";
 
 const EmailConfirmationScreen = () => {
     const [email, setEmail] = useState('email@gmail.com');
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
+    useEffect(() => {
+        setTimeout(() => {
+            navigation.navigate(SCREENS.WELCOME);
+        }, 2000);
+    }, []);
 
     return (
         <SafeAreaView className="flex-1 bg-white px-5 py-12">
             <View className="items-center my-16">
                 <Image
-                    source={require('../../assets/images/email.png')}
+                    source={require('../../../assets/images/email.png')}
                     className="w-64 h-48 mr-2"
                     resizeMode="contain"
                 />

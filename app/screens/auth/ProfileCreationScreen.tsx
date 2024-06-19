@@ -1,9 +1,10 @@
 import {Image, SafeAreaView, View} from "react-native";
-import NextButton from "../components/NextButton";
-import StyledTextInput from "../components/StyledTextInput";
+import NextButton from "../../components/NextButton";
+import StyledTextInput from "../../components/StyledTextInput";
 import {useState} from "react";
 import {ParamListBase, useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import SCREENS from "../index";
 
 const ProfileCreationScreen = () => {
 
@@ -14,18 +15,18 @@ const ProfileCreationScreen = () => {
     const [email, setEmail] = useState('');
 
     function handleProfileDetailsSubmit() {
-        navigation.navigate('EmailScreen');
+        navigation.navigate(SCREENS.EMAIL);
     }
 
     return (
         <SafeAreaView className='flex-1'>
             <Image
                 className='absolute top-12'
-                source={require('../../assets/images/profileScreenBg.png')}/>
+                source={require('../../../assets/images/profileScreenBg.png')}/>
             <View className='flex-1 justify-center items-center'>
                 <Image
                     className='w-32 h-32'
-                    source={require('../../assets/images/profilePicPlaceholder.png')}/>
+                    source={require('../../../assets/images/profilePicPlaceholder.png')}/>
             </View>
             <View className='flex-1 px-8'>
                 <StyledTextInput title='Your First Name' placeholder='Enter your first name' value={firstName} onChange={setFirstName}/>

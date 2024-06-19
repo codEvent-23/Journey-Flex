@@ -1,9 +1,10 @@
 import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import NextButton from "../components/NextButton";
+import NextButton from "../../components/NextButton";
 import OTPTextInput from "react-native-otp-textinput";
 import {useRef, useState} from "react";
 import {ParamListBase, useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import SCREENS from "../index";
 
 const OTPVerificationScreen = () => {
 
@@ -19,7 +20,7 @@ const OTPVerificationScreen = () => {
 
     function handleVerifyCodeSubmit() {
         console.log(code);
-        navigation.navigate('ProfileCreationScreen');
+        navigation.navigate(SCREENS.PROFILECREATION);
     }
 
     return (
@@ -29,7 +30,7 @@ const OTPVerificationScreen = () => {
                     <Text className="text-center text-2xl mb-8">Enter your mobile number</Text>
                     <View className="flex-row items-center border border-primary bg-[#1877F21A] rounded p-2 mb-6">
                         <Image
-                            source={require('../../assets/images/flag.png')}
+                            source={require('../../../assets/images/flag.png')}
                             className="w-8 h-8 mr-2"
                         />
                         <Text className="text-lg">+94</Text>
@@ -41,7 +42,7 @@ const OTPVerificationScreen = () => {
                     </View>
                     <View className="flex-row justify-center items-center mb-6">
                         <Image
-                            source={require('../../assets/images/policy.png')}
+                            source={require('../../../assets/images/policy.png')}
                             className="w-6 h-6 mr-2"
                         />
                         <View>
