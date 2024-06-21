@@ -59,10 +59,13 @@ const TabNavigation = () => {
                             style={{
                                 height: 30,
                                 width: 30,
-                                tintColor: focused ? '#1877F2' : '#757575',
+                                marginBottom: 5,
                             }}
                         />
                     ),
+                    tabBarLabelStyle: {
+                        fontSize: 14
+                    },
                     tabBarActiveTintColor: '#1877F2',
                     tabBarInactiveTintColor: '#757575'
                 }}
@@ -82,9 +85,13 @@ const TabNavigation = () => {
                             style={{
                                 height: 30,
                                 width: 30,
+                                marginBottom: 5,
                             }}
                         />
                     ),
+                    tabBarLabelStyle: {
+                        fontSize: 14
+                    },
                     tabBarActiveTintColor: '#1877F2',
                     tabBarInactiveTintColor: '#757575'
                 }}
@@ -104,10 +111,13 @@ const TabNavigation = () => {
                             style={{
                                 height: 30,
                                 width: 30,
-                                tintColor: focused ? '#1877F2' : '#757575',
+                                marginBottom: 5,
                             }}
                         />
                     ),
+                    tabBarLabelStyle: {
+                        fontSize: 14
+                    },
                     tabBarActiveTintColor: '#1877F2',
                     tabBarInactiveTintColor: '#757575'
                 }}
