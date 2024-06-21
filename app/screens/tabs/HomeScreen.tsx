@@ -1,27 +1,74 @@
-import {Image, SafeAreaView, Text, View} from "react-native";
-import {useState} from "react";
+import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
 import ImageSlider from "../../components/ImageSlider";
+import RoundedButton from "../../components/RoundedButton";
 
 const HomeScreen = () => {
-
     const [username, setUsername] = useState('Nimna');
     const [greet, setGreet] = useState('Good morning');
+    const [balance, setBalance] = useState('49');
+
+    function handleAddTransportPlans() {
+
+    }
+
+    function handleMoneyBtn(){
+        
+    }
 
     return (
         <SafeAreaView className='w-full h-full bg-background'>
-            <View className='flex-1 bg-primary px-4'>
-                <View className='flex-row justify-between items-center mt-12 mb-8'>
-                    <View>
-                        <Text className='text-3xl text-white'>Hello {username} !</Text>
-                        <Text className='text-lg text-white'>{greet}</Text>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <View className='flex-1 bg-primary px-4'>
+                    <View className='flex-row justify-between items-center mt-12 mb-8'>
+                        <View>
+                            <Text className='text-3xl text-white'>Hello {username} !</Text>
+                            <Text className='text-lg text-white'>{greet}</Text>
+                        </View>
+                        <Image source={require('../../../assets/images/notification.png')} />
                     </View>
-                    <Image source={require('../../../assets/images/notification.png')}/>
+                    <ImageSlider />
                 </View>
-                <ImageSlider/>
-            </View>
-            <View className='flex-1 justify-center items-center bg-background'></View>
+                <View className='flex-1 bg-background px-4'>
+                    <View className='flex-row justify-around items-center w-full bg-white mt-4 py-8 rounded-2xl'>
+                        <View>
+                            <Text className='text-2xl font-bold'>Transport Plans</Text>
+                            <Text className='text-base'>packages details</Text>
+                        </View>
+                        <RoundedButton title='Add' fontSize='2xl' handler={handleAddTransportPlans}  marginRight='0'/>
+                    </View>
+                    <View className='w-full bg-white mt-4 py-4 px-6 rounded-2xl'>
+                        <View className='flex-row'>
+                            <RoundedButton title='Money' fontSize='sm' handler={handleAddTransportPlans} marginRight='2'/>
+                            <RoundedButton title='Active' fontSize='sm' handler={handleAddTransportPlans} marginRight='2'/>
+                        </View>
+                        <View className='flex-row justify-between items-center py-4 border-b-2 border-gray-600'>
+                            <View>
+                                <Text className='text-3xl font-bold mb-2'>Balance</Text>
+                                <View className='flex-row items-end'>
+                                    <Text className='text-base'>RS.</Text>
+                                    <Text className='text-3xl'>{balance}</Text>
+                                </View>
+                            </View>
+                            <RoundedButton title='Buy' fontSize='2xl' handler={handleAddTransportPlans} marginRight='0'/>
+                        </View>
+                        <View className='py-4'>
+                            <TouchableOpacity onPress={handleAddTransportPlans}>
+                                <Text className='text-lg text-primary'>Top Up History</Text>
+                            </TouchableOpacity>
+                            <Text className='text-4xl my-3'>Quick Top Up</Text>
+                            <View className='flex-row justify-around mt-2'>
+                                <Text className='bg-background px-2 py-1 rounded-2xl shadow shadow-black'>Rs.1000</Text>
+                                <Text className='bg-background px-2 py-1 rounded-2xl shadow shadow-black'>Rs.2000</Text>
+                                <Text className='bg-background px-2 py-1 rounded-2xl shadow shadow-black'>Rs.3000</Text>
+                                <Text className='bg-background px-2 py-1 rounded-2xl shadow shadow-black'>Rs.4000</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </ScrollView>
         </SafeAreaView>
-    )
+    );
 }
 
 export default HomeScreen;

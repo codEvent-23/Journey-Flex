@@ -7,7 +7,7 @@ interface NextButtonProps {
 
 const NextButton = (props: NextButtonProps) => {
     return(
-        <TouchableOpacity className="bg-blue-500 rounded p-3" onPress={props.handler}>
+        <TouchableOpacity className="bg-primary rounded p-3" onPress={props.handler}>
             <Text className="text-center text-white text-lg">{props.title}</Text>
         </TouchableOpacity>
     )

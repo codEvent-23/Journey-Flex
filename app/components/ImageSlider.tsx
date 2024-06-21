@@ -1,7 +1,5 @@
-// ImageSlider.js
 import React, { useEffect, useRef, useState } from 'react';
 import { View, ScrollView, Image, Dimensions } from 'react-native';
-import { styled } from 'nativewind';
 
 const { width } = Dimensions.get('window');
 
@@ -23,24 +21,25 @@ const ImageSlider = () => {
                 scrollViewRef.current.scrollTo({ x: newIndex * width, animated: true });
                 setCurrentIndex(newIndex);
             }
-        }, 3000); // Change slide every 3 seconds
+        }, 3000);
 
         return () => clearInterval(interval);
     }, [currentIndex]);
 
     return (
-        <View className="flex-1 items-center justify-center mb-4">
+        <View className="mb-4">
             <ScrollView
                 ref={scrollViewRef}
                 horizontal
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
                 scrollEnabled={false} // Disable manual scrolling
-                className="w-full h-full"
+                className="w-full"
+                style={{ height: 200 }} // Set a fixed height for the slider
             >
                 {images.map((image, index) => (
-                    <View key={index} className="w-screen h-full">
-                        <Image source={image} className="w-full h-full" />
+                    <View key={index} style={{ width, height: 200 }}>
+                        <Image source={image} style={{ width: '100%', height: '100%' }} />
                     </View>
                 ))}
             </ScrollView>
@@ -48,4 +47,4 @@ const ImageSlider = () => {
     );
 };
 
-export default styled(ImageSlider);
+export default ImageSlider;
