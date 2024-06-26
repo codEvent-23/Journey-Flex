@@ -1,16 +1,16 @@
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {createNativeStackNavigator, NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import LoadingScreen from "../screens/intro/LoadingScreen";
 import OTPVerificationScreen from "../screens/auth/OTPVerificationScreen";
 import ProfileCreationScreen from "../screens/auth/ProfileCreationScreen";
 import EmailConfirmationScreen from "../screens/auth/EmailConfirmationScreen";
 import WelcomeScreen from "../screens/intro/WelcomeScreen";
-import {NavigationContainer} from "@react-navigation/native";
+import {NavigationContainer, ParamListBase, useNavigation} from "@react-navigation/native";
 import HomeScreen from "../screens/tabs/HomeScreen";
 import ActivityScreen from "../screens/tabs/ActivityScreen";
 import SCREENS from "../screens";
 import ProfileScreen from "../screens/tabs/ProfileScreen";
-import {Image} from "react-native";
+import {Image, TouchableOpacity} from "react-native";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,11 +31,12 @@ const AppNavigation = () => {
 }
 
 const TabNavigation = () => {
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
     return (
         <Tab.Navigator
             initialRouteName={SCREENS.HOME}
             screenOptions={{
-                headerShown: false,
                 tabBarStyle: {
                     height: 70,
                     paddingBottom: 10,
@@ -67,7 +68,8 @@ const TabNavigation = () => {
                         fontSize: 14
                     },
                     tabBarActiveTintColor: '#1877F2',
-                    tabBarInactiveTintColor: '#757575'
+                    tabBarInactiveTintColor: '#757575',
+                    headerShown: false
                 }}
             />
             <Tab.Screen
@@ -93,7 +95,25 @@ const TabNavigation = () => {
                         fontSize: 14
                     },
                     tabBarActiveTintColor: '#1877F2',
-                    tabBarInactiveTintColor: '#757575'
+                    tabBarInactiveTintColor: '#757575',
+                    headerShown: true,
+                    headerTitleAlign: "center",
+                    headerTintColor: '#1877F2',
+                    headerStyle: {
+                        backgroundColor: '#F5F7FA',
+                        height: 100
+                    },
+                    headerTitleStyle: {
+                        fontSize: 24
+                    },
+                    headerLeft: () => (
+                        <TouchableOpacity onPress={() => navigation.navigate(SCREENS.HOME)}>
+                            <Image
+                                source={require('../../assets/images/back-arrow.png')}
+                                style={{ width: 28, height: 28, marginLeft: 15 }}
+                            />
+                        </TouchableOpacity>
+                    )
                 }}
             />
             <Tab.Screen
@@ -119,7 +139,8 @@ const TabNavigation = () => {
                         fontSize: 14
                     },
                     tabBarActiveTintColor: '#1877F2',
-                    tabBarInactiveTintColor: '#757575'
+                    tabBarInactiveTintColor: '#757575',
+                    headerShown: false
                 }}
             />
         </Tab.Navigator>

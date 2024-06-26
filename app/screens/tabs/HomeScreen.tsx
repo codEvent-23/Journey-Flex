@@ -2,6 +2,7 @@ import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "r
 import { useState } from "react";
 import ImageSlider from "../../components/ImageSlider";
 import RoundedButton from "../../components/RoundedButton";
+import QuickTopUpCard from "../../components/QuickTopUpCard";
 
 const HomeScreen = () => {
     const [username, setUsername] = useState('Nimna');
@@ -13,7 +14,7 @@ const HomeScreen = () => {
     }
 
     function handleMoneyBtn(){
-        
+
     }
 
     return (
@@ -58,10 +59,10 @@ const HomeScreen = () => {
                             </TouchableOpacity>
                             <Text className='text-4xl my-3'>Quick Top Up</Text>
                             <View className='flex-row justify-around mt-2'>
-                                <Text className='bg-background px-2 py-1 rounded-2xl shadow shadow-black'>Rs.1000</Text>
-                                <Text className='bg-background px-2 py-1 rounded-2xl shadow shadow-black'>Rs.2000</Text>
-                                <Text className='bg-background px-2 py-1 rounded-2xl shadow shadow-black'>Rs.3000</Text>
-                                <Text className='bg-background px-2 py-1 rounded-2xl shadow shadow-black'>Rs.4000</Text>
+                                <QuickTopUpCard title='Rs. 1000' />
+                                <QuickTopUpCard title='Rs. 2000' />
+                                <QuickTopUpCard title='Rs. 3000' />
+                                <QuickTopUpCard title='Rs. 4000' />
                             </View>
                         </View>
                     </View>
