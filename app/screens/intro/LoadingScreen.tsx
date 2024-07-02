@@ -18,8 +18,8 @@ const LoadingScreen = () => {
     return (
         <SafeAreaView className="flex-1 justify-center items-center bg-primary">
             <Image
-                source={require('../../../assets/images/favicon.png')}
-                className="w-96 h-69"
+                source={require('../../../assets/images/logo.png')}
+                className="w-64"
                 resizeMode="contain"
             />
             <View className='absolute bottom-28'>

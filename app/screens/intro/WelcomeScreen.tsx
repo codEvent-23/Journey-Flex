@@ -17,7 +17,8 @@ const WelcomeScreen = () => {
     return(
         <SafeAreaView className='flex-1 justify-center items-center bg-primary'>
             <View className='flex justify-center items-center mb-48'>
-                <Image className='mb-20' source={require('../../../assets/images/favicon.png')}/>
+                <Image className='mb-16 w-64'
+                       resizeMode="contain" source={require('../../../assets/images/logo.png')}/>
                 <Text className='text-white text-5xl mb-10'>Welcome !</Text>
                 <Text className='text-white text-center text-sm px-20'>Get ready to experience the Journey Flex travel solutions.</Text>
             </View>
