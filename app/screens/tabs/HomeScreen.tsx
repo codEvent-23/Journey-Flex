@@ -13,7 +13,19 @@ const HomeScreen = () => {
 
     }
 
-    function handleMoneyBtn(){
+    function handleMoney(){
+
+    }
+
+    function handleActive(){
+
+    }
+
+    function handleBuy(){
+
+    }
+
+    function handleTopUpHistory(){
 
     }
 
@@ -40,8 +52,8 @@ const HomeScreen = () => {
                     </View>
                     <View className='w-full bg-white mt-4 py-4 px-6 rounded-2xl'>
                         <View className='flex-row'>
-                            <RoundedButton title='Money' fontSize='sm' handler={handleAddTransportPlans} marginRight='2'/>
-                            <RoundedButton title='Active' fontSize='sm' handler={handleAddTransportPlans} marginRight='2'/>
+                            <RoundedButton title='Money' fontSize='sm' handler={handleMoney} marginRight='2'/>
+                            <RoundedButton title='Active' fontSize='sm' handler={handleActive} marginRight='2'/>
                         </View>
                         <View className='flex-row justify-between items-center py-4 border-b-2 border-gray-600'>
                             <View>
@@ -51,10 +63,10 @@ const HomeScreen = () => {
                                     <Text className='text-3xl'>{balance}</Text>
                                 </View>
                             </View>
-                            <RoundedButton title='Buy' fontSize='2xl' handler={handleAddTransportPlans} marginRight='0'/>
+                            <RoundedButton title='Buy' fontSize='2xl' handler={handleBuy} marginRight='0'/>
                         </View>
                         <View className='py-4'>
-                            <TouchableOpacity onPress={handleAddTransportPlans}>
+                            <TouchableOpacity onPress={handleTopUpHistory}>
                                 <Text className='text-lg text-primary'>Top Up History</Text>
                             </TouchableOpacity>
                             <Text className='text-4xl my-3'>Quick Top Up</Text>
