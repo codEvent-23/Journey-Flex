@@ -6,13 +6,6 @@ import SCREENS from "../index";
 
 const EmailConfirmationScreen = () => {
     const [email, setEmail] = useState('email@gmail.com');
-    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-
-    useEffect(() => {
-        setTimeout(() => {
-            navigation.navigate(SCREENS.WELCOME);
-        }, 2000);
-    }, []);
 
     return (
         <SafeAreaView className="flex-1 px-5 py-12 bg-background">

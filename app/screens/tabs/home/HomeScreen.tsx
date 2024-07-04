@@ -1,13 +1,18 @@
-import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { useState } from "react";
-import ImageSlider from "../../components/ImageSlider";
-import RoundedButton from "../../components/RoundedButton";
-import QuickTopUpCard from "../../components/QuickTopUpCard";
+import {Alert, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {useEffect, useState} from "react";
+import ImageSlider from "../../../components/ImageSlider";
+import RoundedButton from "../../../components/RoundedButton";
+import QuickTopUpCard from "../../../components/QuickTopUpCard";
+import {ParamListBase, useNavigation} from "@react-navigation/native";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import SCREENS from "../../index";
 
 const HomeScreen = () => {
     const [username, setUsername] = useState('Nimna');
     const [greet, setGreet] = useState('Good morning');
     const [balance, setBalance] = useState('49');
+
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
     function handleAddTransportPlans() {
 
@@ -29,6 +34,10 @@ const HomeScreen = () => {
 
     }
 
+    function handleNotification(){
+        navigation.navigate(SCREENS.NOTIFICATION);
+    }
+
     return (
         <SafeAreaView className='w-full h-full bg-background'>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -38,7 +47,9 @@ const HomeScreen = () => {
                             <Text className='text-3xl text-white'>Hello {username} !</Text>
                             <Text className='text-lg text-white'>{greet}</Text>
                         </View>
-                        <Image source={require('../../../assets/images/notification.png')} />
+                        <TouchableOpacity onPress={handleNotification}>
+                            <Image source={require('../../../../assets/images/notification.png')} />
+                        </TouchableOpacity>
                     </View>
                     <ImageSlider />
                 </View>
@@ -71,10 +82,10 @@ const HomeScreen = () => {
                             </TouchableOpacity>
                             <Text className='text-4xl my-3'>Quick Top Up</Text>
                             <View className='flex-row justify-around mt-2'>
-                                <QuickTopUpCard title='Rs. 1000' />
-                                <QuickTopUpCard title='Rs. 2000' />
-                                <QuickTopUpCard title='Rs. 3000' />
-                                <QuickTopUpCard title='Rs. 4000' />
+                                <QuickTopUpCard value={1000} />
+                                <QuickTopUpCard value={2000} />
+                                <QuickTopUpCard value={3000} />
+                                <QuickTopUpCard value={4000} />
                             </View>
                         </View>
                     </View>
