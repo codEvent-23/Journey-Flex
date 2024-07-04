@@ -9,17 +9,17 @@ const LoadingScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     const animation = useRef(null);
 
-    useEffect(() => {
-        setTimeout(() => {
-            navigation.navigate(SCREENS.OTP);
-        }, 3000);
-    }, []);
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         navigation.navigate(SCREENS.OTP);
+    //     }, 3000);
+    // }, []);
 
     return (
         <SafeAreaView className="flex-1 justify-center items-center bg-primary">
             <Image
                 source={require('../../../assets/images/logo.png')}
-                className="w-64"
+                className="w-40"
                 resizeMode="contain"
             />
             <View className='absolute bottom-28'>
@@ -28,7 +28,7 @@ const LoadingScreen = () => {
                     loop={true}
                     ref={animation}
                     style={{
-                        width: 150,
+                        width: 75,
                         height: 200,
                     }}
                     source={require('../../../assets/animations/loading-animation.json')}
