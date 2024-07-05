@@ -84,8 +84,7 @@ public class PackageController {
 
     @PostMapping("/deactivatePackage")
     public ResponseEntity<?> deactivatePackage(@RequestParam String packId, @RequestParam String custId) {
-        packageDetailsService.deactivatePackageBeforeMidnight(packId, custId);
-        return ResponseEntity.ok("Package deactivated successfully before midnight");
+        return ResponseEntity.ok(packageDetailsService.deactivatePackageBeforeMidnight(packId, custId));
     }
 
     @Scheduled(cron = "0 0 8 * * *") // Runs every day at 8 AM |||||||| cron = "0 10 17 * * *"  Runs every day at 5:10 PM

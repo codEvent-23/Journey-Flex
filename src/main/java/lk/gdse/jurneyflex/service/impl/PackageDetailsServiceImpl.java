@@ -78,7 +78,7 @@ public class PackageDetailsServiceImpl implements PackageDetailsService {
     }
 
     @Override
-    public void deactivatePackageBeforeMidnight(String packId, String custId) {
+    public String deactivatePackageBeforeMidnight(String packId, String custId) {
         Optional<PackageDetails> packageDetailsOpt = packageDetailsServiceDao.findByPackagesPackIdAndCustomerCustId(packId, custId);
         if (packageDetailsOpt.isPresent()) {
             PackageDetails packageDetails = packageDetailsOpt.get();
@@ -88,6 +88,9 @@ public class PackageDetailsServiceImpl implements PackageDetailsService {
             if (now.isBefore(activeDate.toLocalDate().atStartOfDay().plusDays(1))) {
                 packageDetails.setStatus(Status.DEACTIVATE);
                 packageDetailsServiceDao.save(packageDetails);
+                return "Package deactivated successfully before midnight";
+            }else {
+                return "The package cannot be deactivated.";
             }
         } else {
             throw new NotFoundException("Active package details not found for packId: " + packId + " and custId: " + custId);
