@@ -15,7 +15,7 @@ const HomeScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
     function handleAddTransportPlans() {
-
+        navigation.navigate(SCREENS.TOURPLAN);
     }
 
     function handleMoney(){
@@ -27,7 +27,7 @@ const HomeScreen = () => {
     }
 
     function handleBuy(){
-
+        navigation.navigate(SCREENS.PAYMENTMETHOD)
     }
 
     function handleTopUpHistory(){
@@ -59,7 +59,7 @@ const HomeScreen = () => {
                             <Text className='text-2xl font-bold'>Transport Plans</Text>
                             <Text className='text-base'>packages details</Text>
                         </View>
-                        <RoundedButton title='Add' fontSize='2xl' handler={handleAddTransportPlans}  marginRight='0'/>
+                        <RoundedButton title='Add' fontSize='2xl' handler={handleAddTransportPlans}/>
                     </View>
                     <View className='w-full bg-white mt-4 py-4 px-6 rounded-2xl'>
                         <View className='flex-row'>
@@ -74,7 +74,7 @@ const HomeScreen = () => {
                                     <Text className='text-3xl'>{balance}</Text>
                                 </View>
                             </View>
-                            <RoundedButton title='Buy' fontSize='2xl' handler={handleBuy} marginRight='0'/>
+                            <RoundedButton title='Buy' fontSize='2xl' handler={handleBuy}/>
                         </View>
                         <View className='py-4'>
                             <TouchableOpacity onPress={handleTopUpHistory}>

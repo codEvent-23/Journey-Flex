@@ -5,10 +5,16 @@ enum SCREENS {
     EMAIL = 'EmailScreen',
     WELCOME = 'WelcomeScreen',
     TABS = 'TabScreen',
-    HOME = 'HomeScreen',
+    HOME = 'Home',
     ACTIVITY = 'ActivityScreen',
     PROFILE = 'ProfileScreen',
-    NOTIFICATION = 'NotificationScreen'
+    NOTIFICATION = 'Notification',
+    TOURPLAN = 'TourPlan',
+    CUSTOMIZE = 'Customize',
+    SUMMARY = 'Summary',
+    HIGHWAY = 'Highway',
+    PAYMENTMETHOD = 'PaymentMethod',
+    CARDPAYMENT = 'CardPayment',
 }
 
 export default SCREENS;

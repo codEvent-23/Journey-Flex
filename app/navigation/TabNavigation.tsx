@@ -88,7 +88,7 @@ const TabNavigation = () => {
                     headerLeft: () => (
                         <TouchableOpacity onPress={() => navigation.navigate(SCREENS.HOME)}>
                             <Image
-                                source={require('../../assets/images/back-arrow.png')}
+                                source={require('../../assets/images/back-arrow-blue.png')}
                                 style={{ width: 28, height: 28, marginLeft: 15 }}
                             />
                         </TouchableOpacity>
