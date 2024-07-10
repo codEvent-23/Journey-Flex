@@ -3,9 +3,9 @@ import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import SCREENS from "../screens";
 import {Image, TouchableOpacity} from "react-native";
 import ActivityScreen from "../screens/tabs/ActivityScreen";
-import ProfileScreen from "../screens/tabs/ProfileScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import HomeStackNavigator from "./HomeStackNavigation";
+import ProfileStackNavigation from "./ProfileStackNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -96,8 +96,8 @@ const TabNavigation = () => {
                 }}
             />
             <Tab.Screen
-                name={SCREENS.PROFILE}
-                component={ProfileScreen}
+                name='ProfileTab'
+                component={ProfileStackNavigation}
                 options={{
                     title: 'Profile',
                     tabBarIcon: ({focused}) => (

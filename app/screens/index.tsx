@@ -1,5 +1,4 @@
 enum SCREENS {
-    LOAD = 'LoadingScreen',
     OTP = 'OTPScreen',
     PROFILECREATION = 'ProfileCreationScreen',
     EMAIL = 'EmailScreen',
@@ -15,6 +14,9 @@ enum SCREENS {
     HIGHWAY = 'Highway',
     PAYMENTMETHOD = 'PaymentMethod',
     CARDPAYMENT = 'CardPayment',
+    VIEWPROFILE = 'ViewProfile',
+    FEEDBACK = 'Feedback',
+    ABOUTUS = 'AboutUs',
 }
 
 export default SCREENS;

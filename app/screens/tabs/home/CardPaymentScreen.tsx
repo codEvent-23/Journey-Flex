@@ -1,4 +1,4 @@
-import {Image, SafeAreaView, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Image, SafeAreaView, Text, TextInput, TouchableOpacity, View, StyleSheet} from "react-native";
 import React, {useState} from "react";
 import {Picker} from "@react-native-picker/picker";
 
@@ -34,29 +34,32 @@ const CardPaymentScreen = () => {
                 <View className='flex-row justify-between mb-4'>
                     <View className='flex-1 mr-2'>
                         <Text className='text-lg font-semibold mb-2'>Expiration Month *</Text>
-                        <Picker
-                            selectedValue={expirationMonth}
-                            onValueChange={(itemValue) => setExpirationMonth(itemValue)}
-                            className='border border-gray-300 rounded p-2 bg-red-500'
-                        >
-                            <Picker.Item label="Month" value="" />
-                            {[...Array(12)].map((_, index) => (
-                                <Picker.Item key={index} label={`${index + 1}`} value={`${index + 1}`} />
-                            ))}
-                        </Picker>
+                        <View style={styles.picker}>
+                            <Picker
+                                selectedValue={expirationMonth}
+                                onValueChange={(itemValue) => setExpirationMonth(itemValue)}
+                            >
+                                <Picker.Item label="Month" value="" />
+                                {[...Array(12)].map((_, index) => (
+                                    <Picker.Item key={index} label={`${index + 1}`} value={`${index + 1}`} />
+                                ))}
+                            </Picker>
+                        </View>
                     </View>
                     <View className='flex-1 ml-2'>
                         <Text className='text-lg font-semibold mb-2'>Expiration Year *</Text>
-                        <Picker
-                            selectedValue={expirationYear}
-                            onValueChange={(itemValue) => setExpirationYear(itemValue)}
-                            className='border border-gray-300 rounded p-2'
-                        >
-                            <Picker.Item label="Year" value="" />
-                            {[...Array(10)].map((_, index) => (
-                                <Picker.Item key={index} label={`${new Date().getFullYear() + index}`} value={`${new Date().getFullYear() + index}`} />
-                            ))}
-                        </Picker>
+                        <View style={styles.picker}>
+                            <Picker
+                                selectedValue={expirationYear}
+                                onValueChange={(itemValue) => setExpirationYear(itemValue)}
+                                className='border border-gray-300 rounded p-2'
+                            >
+                                <Picker.Item label="Year" value="" />
+                                {[...Array(10)].map((_, index) => (
+                                    <Picker.Item key={index} label={`${new Date().getFullYear() + index}`} value={`${new Date().getFullYear() + index}`} />
+                                ))}
+                            </Picker>
+                        </View>
                     </View>
                 </View>
 
@@ -70,11 +73,20 @@ const CardPaymentScreen = () => {
                 </View>
 
                 <TouchableOpacity className='bg-blue-500 rounded p-4 mt-4'>
-                    <Text className='text-center text-white text-lg font-semibold'>Subscribed</Text>
+                    <Text className='text-center text-white text-lg font-semibold'>Confirm Payment</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    picker: {
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 4,
+        backgroundColor: '#d5d5d5',
+    },
+});
 
 export default CardPaymentScreen;
