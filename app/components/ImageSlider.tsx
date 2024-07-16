@@ -33,9 +33,9 @@ const ImageSlider = () => {
                 horizontal
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
-                scrollEnabled={false} // Disable manual scrolling
+                scrollEnabled={true}
                 className="w-full"
-                style={{ height: 200 }} // Set a fixed height for the slider
+                style={{ height: 200 }}
             >
                 {images.map((image, index) => (
                     <View key={index} style={{ width, height: 200 }}>

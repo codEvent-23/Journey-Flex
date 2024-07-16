@@ -116,6 +116,7 @@ const CustomPackageCustomizationScreen:React.FC<Props> = ({navigation}) => {
                         title={startingLocation.description}
                         description='Starting Location'
                         identifier='origin'
+                        image={require('../../../../assets/images/map-marker.png')}
                     />
                 )}
                 {destination && (

@@ -1,4 +1,4 @@
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {createNativeStackNavigator, NativeStackNavigationProp} from "@react-navigation/native-stack";
 import SCREENS from "../screens";
 import HomeScreen from "../screens/tabs/home/HomeScreen";
 import NotificationScreen from "../screens/tabs/home/NotificationScreen";
@@ -9,6 +9,9 @@ import CustomPackageSummaryScreen from "../screens/tabs/home/CustomPackageSummar
 import React from "react";
 import LocationWithName from "../interfaces/LocationWithName";
 import HighwayPackagesScreen from "../screens/tabs/home/HighwayPackagesScreen";
+import HomeHeader from "../components/HomeHeader";
+import {Image} from "react-native";
+import {ParamListBase, useNavigation} from "@react-navigation/native";
 
 export type RootStackParamList = {
     Home: undefined;
@@ -28,9 +31,22 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const HomeStackNavigator = () => {
+
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
+    function handleNotification(){
+        navigation.navigate(SCREENS.NOTIFICATION);
+    }
+
     return (
         <Stack.Navigator initialRouteName={SCREENS.HOME}>
-            <Stack.Screen name={SCREENS.HOME} component={HomeScreen} options={{ headerShown: false }} />
+            <Stack.Screen
+                name={SCREENS.HOME}
+                component={HomeScreen}
+                options={{
+                    header: ()=> <HomeHeader username='Nimna' notificationHandler={handleNotification}/>
+                }}
+            />
             <Stack.Screen
                 name={SCREENS.NOTIFICATION}
                 component={NotificationScreen}

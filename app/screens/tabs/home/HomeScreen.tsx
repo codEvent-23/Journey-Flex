@@ -34,26 +34,11 @@ const HomeScreen = () => {
 
     }
 
-    function handleNotification(){
-        navigation.navigate(SCREENS.NOTIFICATION);
-    }
-
     return (
         <SafeAreaView className='w-full h-full bg-background'>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <View className='flex-1 bg-primary px-4'>
-                    <View className='flex-row justify-between items-center mt-12 mb-8'>
-                        <View>
-                            <Text className='text-3xl text-white'>Hello {username} !</Text>
-                            <Text className='text-lg text-white'>{greet}</Text>
-                        </View>
-                        <TouchableOpacity onPress={handleNotification}>
-                            <Image source={require('../../../../assets/images/notification.png')} />
-                        </TouchableOpacity>
-                    </View>
+                <View className='flex-1 bg-background px-4 pt-4'>
                     <ImageSlider />
-                </View>
-                <View className='flex-1 bg-background px-4'>
                     <View className='flex-row justify-around items-center w-full bg-white mt-4 py-8 rounded-2xl'>
                         <View>
                             <Text className='text-2xl font-bold'>Transport Plans</Text>
