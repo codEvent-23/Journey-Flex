@@ -2,12 +2,10 @@ package lk.gdse.jurneyflex.service.impl;
 
 import jakarta.transaction.Transactional;
 
-import lk.gdse.jurneyflex.ENUM.Status;
 import lk.gdse.jurneyflex.conversion.ConversionData;
 import lk.gdse.jurneyflex.dto.PackageDTO;
-import lk.gdse.jurneyflex.entity.Customer;
 import lk.gdse.jurneyflex.entity.Package;
-import lk.gdse.jurneyflex.entity.PackageDetails;
+import lk.gdse.jurneyflex.enumz.PackageType;
 import lk.gdse.jurneyflex.exeption.NotFoundException;
 import lk.gdse.jurneyflex.repository.CustomerServiceDao;
 import lk.gdse.jurneyflex.repository.PackageServiceDao;
@@ -18,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * @author Amil Srinath
  */
@@ -46,10 +46,10 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public void addCustomPackage(PackageDTO packageDTO, String id) {
+        Package packages = new Package();
         if (customerServiceDao.existsById(id)) {
-            packageDTO.setPackId(generateNextPackageId());
-            System.out.println(generateNextPackageId());
-            Package packages = new Package();
+            packages.setPackId(generateNextPackageId());
+            packages.setPackageType(PackageType.CUSTOM_PACKAGE);
             packages.setStartLat(packageDTO.getStartLat());
             packages.setStartLong(packageDTO.getStartLong());
             packages.setDestinationLat(packageDTO.getDestinationLat());
@@ -57,16 +57,9 @@ public class PackageServiceImpl implements PackageService {
             packages.setRoutePerDay(packageDTO.getRoutePerDay());
             packages.setKmAmountPerDay(packageDTO.getKmAmountPerDay());
             packages.setBusType(packageDTO.getBusType());
-            packages.setPackId(packageDTO.getPackId());
-            packages.setPackageType(packageDTO.getPackageType());
             packageServiceDao.save(packages);
             packageDetailsService.addPackageDetails(packageDTO,id);
         }
-    }
-
-    @Override
-    public void updateStatus(String id, String cusID) {
-
     }
 
     @Override
@@ -83,6 +76,7 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public void addStaticPackage(PackageDTO packageDTO) {
+        packageDTO.setPackageType(PackageType.STATIC_PACKAGE);
         packageDTO.setPackId(generateNextPackageId());
         packageServiceDao.save(convert.packageDtoToPackage(packageDTO));
     }

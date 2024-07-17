@@ -1,4 +1,4 @@
-package lk.gdse.jurneyflex.exeption;
+package lk.gdse.jurneyflex.exceptions;
 
 public class DuplicateException extends RuntimeException{
     public DuplicateException(String message) {

@@ -1,4 +1,4 @@
-package lk.gdse.jurneyflex.exeption;
+package lk.gdse.jurneyflex.exceptions;
 
 public class NotFoundException extends RuntimeException{
     public NotFoundException(String message) {

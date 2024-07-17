@@ -1,12 +1,10 @@
 package lk.gdse.jurneyflex.entity;
 
 import jakarta.persistence.*;
-import lk.gdse.jurneyflex.ENUM.Status;
+import lk.gdse.jurneyflex.enumz.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor

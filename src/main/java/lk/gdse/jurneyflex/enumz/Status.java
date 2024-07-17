@@ -1,4 +1,4 @@
-package lk.gdse.jurneyflex.ENUM;
+package lk.gdse.jurneyflex.enumz;
 
 public enum Status {
     ACTIVE, DEACTIVATE,EXPIRED

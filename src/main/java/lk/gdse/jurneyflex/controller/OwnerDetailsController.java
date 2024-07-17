@@ -21,16 +21,12 @@ public class OwnerDetailsController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addOwnerDetails(@Validated @RequestBody OwnerDetailsDTO ownerDetailsDTO, BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
+    public ResponseEntity<?> addOwnerDetails(@Validated @RequestBody OwnerDetailsDTO ownerDetailsDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-        try{
-            ownerDetailsService.saveOwnerDetails(ownerDetailsDTO);
-            return ResponseEntity.ok().body("OwnerDetails saved successfully");
-        }catch (Exception e){
-            return ResponseEntity.internalServerError().body("Internal server error | OwnerDetails saved Unsuccessfully.\nMore Details\n"+e);
-        }
+        ownerDetailsService.saveOwnerDetails(ownerDetailsDTO);
+        return ResponseEntity.ok().body("OwnerDetails saved successfully");
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -43,26 +39,18 @@ public class OwnerDetailsController {
         return ResponseEntity.ok().body(ownerDetailsService.getOwnerDetailsById(id));
     }
 
-    @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateOwnerDetails(@Validated @PathVariable ("id") String id,  @RequestBody OwnerDetailsDTO ownerDetailsDTO, BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> updateOwnerDetails(@Validated @PathVariable("id") String id, @RequestBody OwnerDetailsDTO ownerDetailsDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-        try{
-            ownerDetailsService.updateOwnerDetails(id, ownerDetailsDTO);
-            return ResponseEntity.ok().body("OwnerDetails updated successfully");
-        }catch (Exception e){
-            return ResponseEntity.internalServerError().body("Internal server error | OwnerDetails update Unsuccessfully.\nMore Details\n"+e);
-        }
+        ownerDetailsService.updateOwnerDetails(id, ownerDetailsDTO);
+        return ResponseEntity.ok().body("OwnerDetails updated successfully");
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> deleteOwnerDetails(@PathVariable ("id") String id){
-        try{
-            ownerDetailsService.deleteOwnerDetails(id);
-            return ResponseEntity.ok().body("OwnerDetails deleted successfully");
-        }catch (Exception e){
-            return ResponseEntity.internalServerError().body("Internal server error | OwnerDetails deleted Unsuccessfully.\nMore Details\n"+e);
-        }
+    public ResponseEntity<?> deleteOwnerDetails(@PathVariable("id") String id) {
+        ownerDetailsService.deleteOwnerDetails(id);
+        return ResponseEntity.ok().body("OwnerDetails deleted successfully");
     }
 }

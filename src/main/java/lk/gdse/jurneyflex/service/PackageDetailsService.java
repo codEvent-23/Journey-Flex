@@ -7,7 +7,7 @@ import java.util.Date;
 public interface PackageDetailsService {
     void addPackageDetails(PackageDTO packageDTO,String custId);
     String generateNextPackageDetailsId();
-    void activeStaticPackage(String packId, String custId, String activeDate, String expirationDate);
+    void activeStaticPackage(String packId, String custId);
     void deactivatePackageBeforeMidnight(String packId, String custId);
     String expirePackageNotifyBeforeSevenDays();
     String expiredPackagesNotification();

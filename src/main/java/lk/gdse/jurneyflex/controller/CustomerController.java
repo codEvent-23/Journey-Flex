@@ -25,13 +25,8 @@ public class CustomerController {
         if (bindingResult.hasErrors()){
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-
-        try{
-            customer.saveCustomer(customerDTO);
-            return ResponseEntity.ok().body("Customer saved successfully");
-        }catch (Exception e){
-            return ResponseEntity.internalServerError().body("Internal server error | Customer saved Unsuccessfully.\nMore Details\n"+e);
-        }
+        customer.saveCustomer(customerDTO);
+        return ResponseEntity.ok().body("Customer saved successfully");
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,22 +44,13 @@ public class CustomerController {
         if (bindingResult.hasErrors()){
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-
-        try{
-            customer.updateCustomer(id,customerDTO);
-            return ResponseEntity.ok().body("Customer update successfully");
-        }catch (Exception e){
-            return ResponseEntity.internalServerError().body("Internal server error | Customer update Unsuccessfully.\nMore Details\n"+e);
-        }
+        customer.updateCustomer(id, customerDTO);
+        return ResponseEntity.ok().body("Customer updated successfully");
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteCustomer(@PathVariable ("id") String id){
-        try{
-            customer.deleteCustomer(id);
-            return ResponseEntity.ok().body("Customer deleted successfully");
-        }catch (Exception e){
-            return ResponseEntity.internalServerError().body("Internal server error | Customer deleted Unsuccessfully.\nMore Details\n"+e);
-        }
+        customer.deleteCustomer(id);
+        return ResponseEntity.ok().body("Customer deleted successfully");
     }
 }

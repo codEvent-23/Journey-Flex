@@ -4,12 +4,10 @@ import jakarta.transaction.Transactional;
 import lk.gdse.jurneyflex.conversion.ConversionData;
 import lk.gdse.jurneyflex.dto.CustomerDTO;
 import lk.gdse.jurneyflex.entity.Customer;
-import lk.gdse.jurneyflex.entity.Package;
-import lk.gdse.jurneyflex.exeption.NotFoundException;
+import lk.gdse.jurneyflex.exceptions.NotFoundException;
 import lk.gdse.jurneyflex.repository.CustomerServiceDao;
 import lk.gdse.jurneyflex.repository.PackageServiceDao;
 import lk.gdse.jurneyflex.service.CustomerService;
-import lk.gdse.jurneyflex.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,19 +37,24 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getCustomerById(String id) {
-        if (!customerServiceDao.existsById(id)) throw  new NotFoundException("Customer not found");
-        return convert.customerToCustomerDto(customerServiceDao.findById(id).orElse(null));
+        return customerServiceDao.findById(id)
+                .map(convert::customerToCustomerDto)
+                .orElseThrow(() -> new NotFoundException("Customer not found"));
     }
 
     @Override
     public void updateCustomer(String id, CustomerDTO customerDTO) {
-        if (!customerServiceDao.existsById(id)) throw  new NotFoundException("Customer not found");
+        if (!customerServiceDao.existsById(id)) {
+            throw new NotFoundException("Customer not found");
+        }
         customerServiceDao.save(convert.customerDtoToCustomer(customerDTO));
     }
 
     @Override
     public void deleteCustomer(String id) {
-        if (!customerServiceDao.existsById(id)) throw  new NotFoundException("Customer not found");
+        if (!customerServiceDao.existsById(id)) {
+            throw new NotFoundException("Customer not found");
+        }
         customerServiceDao.deleteById(id);
     }
 

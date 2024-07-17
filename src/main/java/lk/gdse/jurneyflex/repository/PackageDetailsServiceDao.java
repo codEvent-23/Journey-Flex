@@ -1,6 +1,6 @@
 package lk.gdse.jurneyflex.repository;
 
-import lk.gdse.jurneyflex.ENUM.Status;
+import lk.gdse.jurneyflex.enumz.Status;
 import lk.gdse.jurneyflex.entity.PackageDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CustomerDTO implements SuperDTO {
-    @NotNull(message = "Customer id generate by the programme")
+    @Null(message = "Customer id generate by the programme")
     private String custId;
     @NotBlank(message = "customer name cannot be blank")
     @Size(min = 2, max = 100, message = "Customer name must be between 2 and 100 characters")

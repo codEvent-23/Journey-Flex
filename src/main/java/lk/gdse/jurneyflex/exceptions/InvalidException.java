@@ -1,4 +1,4 @@
-package lk.gdse.jurneyflex.exeption;
+package lk.gdse.jurneyflex.exceptions;
 
 public class InvalidException extends RuntimeException{
     public InvalidException(String message) {
