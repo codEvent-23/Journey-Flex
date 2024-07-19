@@ -7,7 +7,7 @@ import lk.gdse.jurneyflex.dto.PackageDTO;
 import lk.gdse.jurneyflex.entity.Customer;
 import lk.gdse.jurneyflex.entity.Package;
 import lk.gdse.jurneyflex.entity.PackageDetails;
-import lk.gdse.jurneyflex.exeption.NotFoundException;
+import lk.gdse.jurneyflex.exceptions.NotFoundException;
 import lk.gdse.jurneyflex.repository.PackageDetailsServiceDao;
 import lk.gdse.jurneyflex.service.CustomerService;
 import lk.gdse.jurneyflex.service.PackageDetailsService;

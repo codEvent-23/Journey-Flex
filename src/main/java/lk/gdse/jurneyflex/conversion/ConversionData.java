@@ -47,4 +47,16 @@ public class ConversionData {
     public List<PackageDTO> convertPackageDtoList(List<Package> packageList){
         return modelMapper.map(packageList, List.class);
     }
+
+    public CardDTO cardtoCardDto(Card card){
+        return modelMapper.map(card, CardDTO.class);
+    }
+
+    public Card cardDtoToCard(CardDTO cardDTO){
+        return modelMapper.map(cardDTO, Card.class);
+    }
+
+    public List<CardDTO> convertCardDtoList(List<Card> cardList){
+        return modelMapper.map(cardList, List.class);
+    }
 }

@@ -1,6 +1,7 @@
 package lk.gdse.jurneyflex.entity;
 
 import jakarta.persistence.*;
+import lk.gdse.jurneyflex.enumz.CardStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,8 @@ import java.util.List;
 public class Card implements SuperEntity{
     @Id
     private String cardId;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private CardStatus status;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "custId", nullable = false)
     private Customer customer;

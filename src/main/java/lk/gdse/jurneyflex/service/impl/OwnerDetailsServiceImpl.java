@@ -5,7 +5,7 @@ import lk.gdse.jurneyflex.conversion.ConversionData;
 import lk.gdse.jurneyflex.dto.OwnerDetailsDTO;
 import lk.gdse.jurneyflex.entity.Customer;
 import lk.gdse.jurneyflex.entity.OwnerDetails;
-import lk.gdse.jurneyflex.exeption.NotFoundException;
+import lk.gdse.jurneyflex.exceptions.NotFoundException;
 import lk.gdse.jurneyflex.repository.OwnerDetailsServiceDao;
 import lk.gdse.jurneyflex.service.OwnerDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
