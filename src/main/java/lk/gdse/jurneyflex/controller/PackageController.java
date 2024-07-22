@@ -30,11 +30,6 @@ public class PackageController {
         return ResponseEntity.ok("Static Package Added");
     }
 
-    @PostMapping("/updatePackageStatus/{id}/{cusIID}")
-    public ResponseEntity<?> updatePackageStatus(@PathVariable("id") String id, @PathVariable("cusIID") String cusIID){
-        return ResponseEntity.ok("Package Updated");
-    }
-
     @PostMapping(value = "/addCustomPackage/{custId}")
     public ResponseEntity<?> addCustomPackage(@RequestBody PackageDTO packageDTO, @PathVariable ("custId") String custId){
         packageService.addCustomPackage(packageDTO,custId);
@@ -51,15 +46,5 @@ public class PackageController {
     public ResponseEntity deactivatePackage(@RequestParam String packId, @RequestParam String custId) {
         packageDetailsService.deactivatePackageBeforeMidnight(packId, custId);
         return ResponseEntity.ok("Package deactivated successfully before midnight");
-    }
-
-    @Scheduled(cron = "0 0 8 * * *") // Runs every day at 8 AM |||||||| cron = "0 10 17 * * *"  Runs every day at 5:10 PM
-    public String expirePackageNotifyBeforeSevenDays() {
-        return packageDetailsService.expirePackageNotifyBeforeSevenDays();
-    }
-
-    @Scheduled(cron = "0 10 0 * * *") // Runs every day at 12:10 AM
-    public String expiredPackagesNotification() {
-        return packageDetailsService.expiredPackagesNotification();
     }
 }

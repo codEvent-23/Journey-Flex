@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class OwnerDetailsDTO implements SuperDTO{
-    @NotNull(message = "Owner id generate by the programme")
+    @Null(message = "Owner id generate by the programme")
     private String ownerId;
     @NotBlank(message = "owner name cannot be blank")
     @Size(min = 2, max = 100, message = "Owner name must be between 2 and 100 characters")

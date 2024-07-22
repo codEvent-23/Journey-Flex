@@ -1,11 +1,13 @@
 package lk.gdse.jurneyflex.entity;
 
 import jakarta.persistence.*;
+import lk.gdse.jurneyflex.enumz.TravelRecordStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,10 +16,16 @@ import java.sql.Timestamp;
 @Table(name = "travelRecord")
 public class TravelRecord implements SuperEntity{
     @Id
-    private String travelRecordId;
-    private Timestamp travelDateTime;
-    private String latitude;
-    private String longitude;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long travelRecordId;
+    private LocalDateTime startDateTime;
+    private String startLatitude;
+    private String startLongitude;
+    private String endLatitude;
+    private String endLongitude;
+    private LocalDateTime endDateTime;
+    @Enumerated(EnumType.STRING)
+    private TravelRecordStatus status;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cardId", nullable = false)
     private Card card;

@@ -14,7 +14,8 @@ import java.util.List;
 @Table(name = "bus")
 public class Bus implements SuperEntity{
     @Id
-    private String busId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer busId;
     private String route;
     private String schedule;
     @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL)

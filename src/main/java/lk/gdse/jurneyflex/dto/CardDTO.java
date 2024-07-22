@@ -17,6 +17,6 @@ public class CardDTO implements SuperDTO{
     private String cardId;
     @Null(message = "Card status set by the programme")
     private CardStatus status;
-    @NotNull
+    @NotNull(message = "Customer id required")
     private String custId;
 }

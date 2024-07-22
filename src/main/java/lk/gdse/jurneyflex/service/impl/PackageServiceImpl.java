@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import lk.gdse.jurneyflex.conversion.ConversionData;
 import lk.gdse.jurneyflex.dto.PackageDTO;
 import lk.gdse.jurneyflex.entity.Package;
+import lk.gdse.jurneyflex.enumz.BusType;
 import lk.gdse.jurneyflex.enumz.PackageType;
 import lk.gdse.jurneyflex.exceptions.NotFoundException;
 import lk.gdse.jurneyflex.repository.CustomerServiceDao;
@@ -46,9 +47,12 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public void addCustomPackage(PackageDTO packageDTO, String id) {
+        packageDTO.setPackId(generateNextPackageId());
+        packageDTO.setBusType(BusType.NON_AC);
         Package packages = new Package();
         if (customerServiceDao.existsById(id)) {
-            packages.setPackId(generateNextPackageId());
+            packages.setPackId(packageDTO.getPackId());
+            System.out.println(packages.getPackId());
             packages.setPackageType(PackageType.CUSTOM_PACKAGE);
             packages.setStartLat(packageDTO.getStartLat());
             packages.setStartLong(packageDTO.getStartLong());
@@ -76,6 +80,7 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public void addStaticPackage(PackageDTO packageDTO) {
+        packageDTO.setBusType(BusType.AC);
         packageDTO.setPackageType(PackageType.STATIC_PACKAGE);
         packageDTO.setPackId(generateNextPackageId());
         packageServiceDao.save(convert.packageDtoToPackage(packageDTO));

@@ -7,4 +7,6 @@ public interface CardService {
     void saveCard(CardDTO cardDTO);
 
     CardDTO getCardById(String id);
+
+    Card getCardEntityById(String id);
 }

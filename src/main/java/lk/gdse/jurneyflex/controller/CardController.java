@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class CardController {
     private CardService card;
-    @GetMapping("/healthTest")
+    @GetMapping("/healthCheck")
     public String healthTest(){
         return "Healthy";
     }

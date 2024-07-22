@@ -59,4 +59,16 @@ public class ConversionData {
     public List<CardDTO> convertCardDtoList(List<Card> cardList){
         return modelMapper.map(cardList, List.class);
     }
+
+    public BusDTO busToBusDto(Bus bus){
+        return modelMapper.map(bus, BusDTO.class);
+    }
+
+    public Bus convertBusDTOToBus(BusDTO busDTO){
+        return modelMapper.map(busDTO, Bus.class);
+    }
+
+    public List<BusDTO> convertBusDtoList(List<Bus> busList){
+        return modelMapper.map(busList, List.class);
+    }
 }
