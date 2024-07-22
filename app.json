@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "Journey-Flex",
+    "slug": "Journey-Flex",
+    "plugins": ["@react-native-firebase/app", "@react-native-firebase/auth"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon-new.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/images/splash-new.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon-new.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.codeventlk.JourneyFlex"
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0bd9755f-a9a9-4109-9e05-dd171d0b9c50"
+      }
+    }
+  }
+}

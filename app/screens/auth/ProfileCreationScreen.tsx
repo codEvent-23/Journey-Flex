@@ -1,0 +1,54 @@
+import { Image, SafeAreaView, View } from "react-native";
+import NextButton from "../../components/NextButton";
+import StyledTextInput from "../../components/StyledTextInput";
+import { useState } from "react";
+import { ParamListBase, useNavigation, useRoute } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import auth from '@react-native-firebase/auth';
+import SCREENS from "../index";
+
+const ProfileCreationScreen = () => {
+
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+    
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+
+    const user = auth().currentUser;
+
+    const handleProfileDetailsSubmit = async () => {
+        try {
+            await user?.updateProfile({
+                displayName: `${firstName} ${lastName}`
+            });
+            await user?.updateEmail(email);
+            /* After saving details, navigate to Dashboard */
+            navigation.navigate(SCREENS.EMAIL);
+
+        } catch (error) {
+            console.log("Error saving details: ", error);
+        }
+    }
+
+    return (
+        <SafeAreaView className='flex-1 bg-background'>
+            <Image
+                className='absolute top-12'
+                source={require('../../../assets/images/profileScreenBg.png')} />
+            <View className='flex-1 justify-center items-center'>
+                <Image
+                    className='w-32 h-32'
+                    source={require('../../../assets/images/profilePicPlaceholder.png')} />
+            </View>
+            <View className='flex-1 px-8'>
+                <StyledTextInput title='Your First Name' placeholder='Enter your first name' value={firstName} onChange={setFirstName} />
+                <StyledTextInput title='Your Last Name' placeholder='Enter your last name' value={lastName} onChange={setLastName} />
+                <StyledTextInput title='Your Email' placeholder='Enter your email' value={email} onChange={setEmail} />
+                <NextButton title='Done' handler={handleProfileDetailsSubmit} />
+            </View>
+        </SafeAreaView>
+    )
+}
+
+export default ProfileCreationScreen;

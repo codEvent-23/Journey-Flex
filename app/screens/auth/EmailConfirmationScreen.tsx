@@ -1,0 +1,58 @@
+import React, { useEffect, useState } from "react";
+import { View, Image, Text, TouchableOpacity, SafeAreaView } from "react-native";
+import { ParamListBase, useNavigation, useRoute } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import auth from '@react-native-firebase/auth';
+import SCREENS from "../index";
+
+const EmailConfirmationScreen = () => {
+
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
+    const user = auth().currentUser;
+
+    const [email, setEmail] = useState(user?.email);
+
+    useEffect(() => {
+        console.log(user?.email)
+        const sendEmailVerification = async () => {
+            if (await user?.sendEmailVerification()) {
+                navigation.navigate(SCREENS.WELCOME);
+            }
+        };
+
+        sendEmailVerification();
+    }, []);
+
+    return (
+        <SafeAreaView className="flex-1 px-5 py-12 bg-background">
+            <View className="items-center my-16">
+                <Image
+                    source={require('../../../assets/images/email.png')}
+                    className="w-64 h-48 mr-2"
+                    resizeMode="contain"
+                />
+            </View>
+            <View className="items-center">
+                <Text className="text-4xl text-center text-primary font-bold mb-4">Confirm your E-mail</Text>
+                <Text className="text-base text-gray-500 mb-3 text-center px-12">We sent an email with a confirmation link to your email</Text>
+                <Text className="text-lg mb-3">{email}</Text>
+                <Text className="text-base text-gray-500 mb-3 text-center px-12">Check your email and click on the confirmation link to the continue</Text>
+            </View>
+            <View className="absolute bottom-12 w-full items-center pl-12">
+                <Text className="text-base text-gray-600">Didn't get a confirmation?</Text>
+                <View className="flex-row items-center">
+                    <TouchableOpacity onPress={() => navigation.navigate(SCREENS.PROFILECREATION)}>
+                        <Text className="text-base text-blue-500">Change email</Text>
+                    </TouchableOpacity>
+                    <Text className="text-base text-gray-600 mx-2">or</Text>
+                    <TouchableOpacity onPress={() => user?.sendEmailVerification()}>
+                        <Text className="text-base text-blue-500">Resend</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </SafeAreaView>
+    );
+}
+
+export default EmailConfirmationScreen;

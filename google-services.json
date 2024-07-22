@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "74917327810",
+    "project_id": "journey-flex",
+    "storage_bucket": "journey-flex.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74917327810:android:ef671fa7c4233a4afadc5b",
+        "android_client_info": {
+          "package_name": "com.codeventlk.JourneyFlex"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW9U_sIbj0BZOIeR80N4qf1MqqIYogDL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
