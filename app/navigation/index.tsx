@@ -33,9 +33,9 @@ const AppNavigation = () => {
                 <LoadingScreen/>
             ) : (
                 <Stack.Navigator>
-                    {!user ? (
+                    {user ? (
                         <>
-                            <Stack.Screen name={SCREENS.OTP} component={OTPVerificationScreen} options={{headerShown: false}}/>
+                            {/* <Stack.Screen name={SCREENS.OTP} component={OTPVerificationScreen} options={{headerShown: false}}/> */}
                             <Stack.Screen name={SCREENS.PROFILECREATION} component={ProfileCreationScreen} options={{headerShown: false}}/>
                             <Stack.Screen name={SCREENS.EMAIL} component={EmailConfirmationScreen} options={{headerShown: false}}/>
                         </>

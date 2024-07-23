@@ -11,14 +11,15 @@ const EmailConfirmationScreen = () => {
 
     const user = auth().currentUser;
 
-    const [email, setEmail] = useState(user?.email);
+    const [email, setEmail] = useState(user?.email || String);
 
     useEffect(() => {
-        console.log(user?.email)
-        const sendEmailVerification = async () => {
-            if (await user?.sendEmailVerification()) {
+        const sendEmailVerification = () => {
+            /*await auth().createUserWithEmailAndPassword(email,'1234');
+            if (await auth().currentUser?.sendEmailVerification()) {
                 navigation.navigate(SCREENS.WELCOME);
-            }
+            }*/
+            navigation.navigate(SCREENS.WELCOME);
         };
 
         sendEmailVerification();
