@@ -11,15 +11,19 @@ import LoadingScreen from "../screens/intro/LoadingScreen";
 import BackBtn from "../components/BackBtn";
 import PaymentMethodScreen from "../screens/tabs/home/PaymentMethodScreen";
 import CardPaymentScreen from "../screens/tabs/home/CardPaymentScreen";
-import auth from '@react-native-firebase/auth';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {AuthProvider, useAuth} from "../context/AuthContext";
 
 const Stack = createNativeStackNavigator();
 
 const AppNavigation = () => {
-    
-    const [isLoading, setIsLoading] = useState(true);
 
-    const user = auth().currentUser;
+    const [isLoading, setIsLoading] = useState(true);
+    const [isLoggedUser, setIsLoggedUser] = useState(false);
+    const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+    // const { user } = useAuth();
+
+    // const user = auth().currentUser;
 
     useEffect(() => {
         setTimeout(() => {
@@ -27,66 +31,128 @@ const AppNavigation = () => {
         }, 2000);
     }, []);
 
+    useEffect(() => {
+        auth().onAuthStateChanged((user) => {
+            setUser(user)
+            if (user?.email){
+                setIsLoggedUser(true)
+            }else {
+                setIsLoggedUser(false)
+            }
+            console.log('logged user: ', isLoggedUser)
+        })
+    }, []);
+
     return (
         <NavigationContainer>
+            <AuthProvider>
             {isLoading ? (
                 <LoadingScreen/>
             ) : (
                 <Stack.Navigator>
-                    {user ? (
+                    {!user ? (
                         <>
-                            {/* <Stack.Screen name={SCREENS.OTP} component={OTPVerificationScreen} options={{headerShown: false}}/> */}
-                            <Stack.Screen name={SCREENS.PROFILECREATION} component={ProfileCreationScreen} options={{headerShown: false}}/>
-                            <Stack.Screen name={SCREENS.EMAIL} component={EmailConfirmationScreen} options={{headerShown: false}}/>
+                            <Stack.Screen name={SCREENS.OTP} component={OTPVerificationScreen} options={{headerShown: false}}/>
                         </>
                     ) : (
-                        <>
-                            <Stack.Screen name={SCREENS.WELCOME} component={WelcomeScreen} options={{headerShown: false}}/>
-                            <Stack.Screen name={SCREENS.TABS} component={TabNavigation} options={{headerShown: false}}/>
-                            <Stack.Screen
-                                name={SCREENS.PAYMENTMETHOD}
-                                component={PaymentMethodScreen}
-                                options={{
-                                    title: 'Payment Method',
-                                    headerShown: true,
-                                    headerTitleAlign: 'center',
-                                    headerTintColor: '#1877F2',
-                                    headerShadowVisible: false,
-                                    headerStyle: {
-                                        backgroundColor: '#F5F7FA',
-                                    },
-                                    headerTitleStyle: {
-                                        fontSize: 24,
-                                    },
-                                    headerLeft: () => (
-                                        <BackBtn screen={SCREENS.HOME} image={require('../../assets/images/back-arrow-blue.png')}/>
-                                    ),
-                                }}
-                            />
-                            <Stack.Screen
-                                name={SCREENS.CARDPAYMENT}
-                                component={CardPaymentScreen}
-                                options={{
-                                    title: 'Payment Details',
-                                    headerShown: true,
-                                    headerTitleAlign: 'center',
-                                    headerTintColor: '#1877F2',
-                                    headerShadowVisible: false,
-                                    headerStyle: {
-                                        backgroundColor: '#F5F7FA',
-                                    },
-                                    headerTitleStyle: {
-                                        fontSize: 24,
-                                    },
-                                    headerLeft: () => (
-                                        <BackBtn screen={SCREENS.PAYMENTMETHOD} image={require('../../assets/images/back-arrow-blue.png')}/>
-                                    ),
-                                }}
-                            />
-                        </>
+                        isLoggedUser ?
+                            <>
+                                <Stack.Screen name={SCREENS.WELCOME} component={WelcomeScreen} options={{headerShown: false}}/>
+                                <Stack.Screen name={SCREENS.TABS} component={TabNavigation} options={{headerShown: false}}/>
+                                <Stack.Screen
+                                    name={SCREENS.PAYMENTMETHOD}
+                                    component={PaymentMethodScreen}
+                                    options={{
+                                        title: 'Payment Method',
+                                        headerShown: true,
+                                        headerTitleAlign: 'center',
+                                        headerTintColor: '#1877F2',
+                                        headerShadowVisible: false,
+                                        headerStyle: {
+                                            backgroundColor: '#F5F7FA',
+                                        },
+                                        headerTitleStyle: {
+                                            fontSize: 24,
+                                        },
+                                        headerLeft: () => (
+                                            <BackBtn screen={SCREENS.HOME} image={require('../../assets/images/back-arrow-blue.png')}/>
+                                        ),
+                                    }}
+                                />
+                                <Stack.Screen
+                                    name={SCREENS.CARDPAYMENT}
+                                    component={CardPaymentScreen}
+                                    options={{
+                                        title: 'Payment Details',
+                                        headerShown: true,
+                                        headerTitleAlign: 'center',
+                                        headerTintColor: '#1877F2',
+                                        headerShadowVisible: false,
+                                        headerStyle: {
+                                            backgroundColor: '#F5F7FA',
+                                        },
+                                        headerTitleStyle: {
+                                            fontSize: 24,
+                                        },
+                                        headerLeft: () => (
+                                            <BackBtn screen={SCREENS.PAYMENTMETHOD} image={require('../../assets/images/back-arrow-blue.png')}/>
+                                        ),
+                                    }}
+                                />
+                            </>
+
+                            :
+
+                            <>
+                                <Stack.Screen name={SCREENS.PROFILECREATION} component={ProfileCreationScreen} options={{headerShown: false}}/>
+                                <Stack.Screen name={SCREENS.EMAIL} component={EmailConfirmationScreen} options={{headerShown: false}}/>
+                                <Stack.Screen name={SCREENS.TABS} component={TabNavigation} options={{headerShown: false}}/>
+                                <Stack.Screen name={SCREENS.WELCOME} component={WelcomeScreen} options={{headerShown: false}}/>
+                                <Stack.Screen
+                                    name={SCREENS.PAYMENTMETHOD}
+                                    component={PaymentMethodScreen}
+                                    options={{
+                                        title: 'Payment Method',
+                                        headerShown: true,
+                                        headerTitleAlign: 'center',
+                                        headerTintColor: '#1877F2',
+                                        headerShadowVisible: false,
+                                        headerStyle: {
+                                            backgroundColor: '#F5F7FA',
+                                        },
+                                        headerTitleStyle: {
+                                            fontSize: 24,
+                                        },
+                                        headerLeft: () => (
+                                            <BackBtn screen={SCREENS.HOME} image={require('../../assets/images/back-arrow-blue.png')}/>
+                                        ),
+                                    }}
+                                />
+                                <Stack.Screen
+                                    name={SCREENS.CARDPAYMENT}
+                                    component={CardPaymentScreen}
+                                    options={{
+                                        title: 'Payment Details',
+                                        headerShown: true,
+                                        headerTitleAlign: 'center',
+                                        headerTintColor: '#1877F2',
+                                        headerShadowVisible: false,
+                                        headerStyle: {
+                                            backgroundColor: '#F5F7FA',
+                                        },
+                                        headerTitleStyle: {
+                                            fontSize: 24,
+                                        },
+                                        headerLeft: () => (
+                                            <BackBtn screen={SCREENS.PAYMENTMETHOD} image={require('../../assets/images/back-arrow-blue.png')}/>
+                                        ),
+                                    }}
+                                />
+                            </>
                     )}
                 </Stack.Navigator>
             )}
+            </AuthProvider>
         </NavigationContainer>
     );
 }

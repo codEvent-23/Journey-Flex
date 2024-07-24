@@ -9,6 +9,17 @@ const ProfileScreen = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
+    const signOutUser = async () => {
+        try {
+            await auth().signOut();
+
+            console.log('User signed out!');
+            // You can navigate the user to the login screen or perform other actions here
+        } catch (error) {
+            console.error('Error signing out: ', error);
+        }
+    };
+
     const handleViewProfile = () => {
         navigation.navigate(SCREENS.VIEWPROFILE);
     }
@@ -42,7 +53,7 @@ const ProfileScreen = () => {
                 {
                     text: 'LOGOUT',
                     onPress: () => {
-                        navigation.navigate(SCREENS.HOME);
+                        signOutUser();
                     },
                 },
             ],

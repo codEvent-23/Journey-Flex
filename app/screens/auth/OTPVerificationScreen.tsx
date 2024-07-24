@@ -2,15 +2,10 @@ import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, StyleShee
 import NextButton from "../../components/NextButton";
 import OTPTextInput from "react-native-otp-textinput";
 import React, { useState, useEffect, useRef } from 'react';
-import { ParamListBase, useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import SCREENS from "../index";
 
 const OTPVerificationScreen = () => {
 
-    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     const [phoneNumber, setPhoneNumber] = useState<string>("");
     const [confirm, setConfirm] = useState<FirebaseAuthTypes.ConfirmationResult | null>(null);
     const [code, setCode] = useState<string>("");
@@ -32,19 +27,25 @@ const OTPVerificationScreen = () => {
             const userCredential = await confirm?.confirm(code);
             const user = userCredential?.user;
 
-            /* Check if the user is new or existing */
-            const userDocument = await firestore()
-                .collection("users")
-                .doc(user?.uid)
-                .get();
-
-            if (userDocument.exists) {
-                /* User is existing, navigate to Dashboard*/
-                navigation.navigate(SCREENS.WELCOME);
-            } else {
-                /* User is new, navigate to Details Page*/
-                navigation.navigate(SCREENS.PROFILECREATION);
-            }
+            // const userQuerySnapshot = await firestore()
+            //     .collection('users')
+            //     .where('phoneNumber', '==', phoneNumber)
+            //     .get();
+            // if (!userQuerySnapshot.empty) {
+            //     const userDoc = userQuerySnapshot.docs[0];
+            //     console.log('User data:', userDoc.data());
+            //
+            //     // if (userDoc.exists) {
+            //     //     /* User is existing, navigate to Dashboard*/
+            //     //     navigation.navigate(SCREENS.TABS);
+            //     // } else {
+            //     //     /* User is new, navigate to Details Page*/
+            //     //     navigation.navigate(SCREENS.PROFILECREATION, {phoneNumber: phoneNumber});
+            //     // }
+            // } else {
+            //     console.log('No user found with this phone number');
+            //     return null;
+            // }
 
         } catch (error) {
             console.log("Invalid Code.", error);

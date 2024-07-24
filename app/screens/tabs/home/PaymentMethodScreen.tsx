@@ -1,13 +1,52 @@
-import {Image, SafeAreaView, Text, TouchableOpacity, View} from "react-native";
+import {Image, SafeAreaView, Text, TouchableOpacity, View, Alert} from "react-native";
 import {ParamListBase, useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import PayHere from '@payhere/payhere-mobilesdk-reactnative';
 import SCREENS from "../../index";
 
 const PaymentMethodScreen = () => {
-    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+    const navigation = useNavigation();
 
     function handleCardPayment() {
-        navigation.navigate(SCREENS.CARDPAYMENT);
+        if (!PayHere) {
+            console.error('PayHere is not defined');
+            return;
+        }
+
+        const paymentObject = {
+            "sandbox": true,
+            "merchant_id": "1227731",
+            "notify_url": "http://sample.com/notify",
+            "order_id": "ItemNo12345",
+            "items": "Hello from React Native!",
+            "amount": "50.00",
+            "currency": "LKR",
+            "first_name": "Saman",
+            "last_name": "Perera",
+            "email": "samanp@gmail.com",
+            "phone": "0771234567",
+            "address": "No.1, Galle Road",
+            "city": "Colombo",
+            "country": "Sri Lanka",
+            "delivery_address": "No. 46, Galle road, Kalutara South",
+            "delivery_city": "Kalutara",
+            "delivery_country": "Sri Lanka",
+            "custom_1": "",
+            "custom_2": ""
+        };
+
+        PayHere.startPayment(
+            paymentObject,
+            (paymentId) => {
+                console.log("Payment Completed", paymentId);
+            },
+            (errorData) => {
+                Alert.alert("PayHere Error", errorData);
+            },
+            () => {
+                console.log("Payment Dismissed");
+            }
+        );
     }
 
     return (

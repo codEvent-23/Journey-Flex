@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, Image, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import { ParamListBase, useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import auth from '@react-native-firebase/auth';
 import SCREENS from "../index";
+import RoundedButton from "../../components/RoundedButton";
 
 const EmailConfirmationScreen = () => {
 
@@ -13,17 +14,9 @@ const EmailConfirmationScreen = () => {
 
     const [email, setEmail] = useState(user?.email || String);
 
-    useEffect(() => {
-        const sendEmailVerification = () => {
-            /*await auth().createUserWithEmailAndPassword(email,'1234');
-            if (await auth().currentUser?.sendEmailVerification()) {
-                navigation.navigate(SCREENS.WELCOME);
-            }*/
-            navigation.navigate(SCREENS.WELCOME);
-        };
-
-        sendEmailVerification();
-    }, []);
+    const handleSkip = async () => {
+        navigation.navigate(SCREENS.WELCOME);
+    }
 
     return (
         <SafeAreaView className="flex-1 px-5 py-12 bg-background">
@@ -39,6 +32,7 @@ const EmailConfirmationScreen = () => {
                 <Text className="text-base text-gray-500 mb-3 text-center px-12">We sent an email with a confirmation link to your email</Text>
                 <Text className="text-lg mb-3">{email}</Text>
                 <Text className="text-base text-gray-500 mb-3 text-center px-12">Check your email and click on the confirmation link to the continue</Text>
+                <RoundedButton title='Ok, Got it!' fontSize='lg' handler={handleSkip}/>
             </View>
             <View className="absolute bottom-12 w-full items-center pl-12">
                 <Text className="text-base text-gray-600">Didn't get a confirmation?</Text>

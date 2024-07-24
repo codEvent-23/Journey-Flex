@@ -1,31 +1,54 @@
-import { Image, SafeAreaView, View } from "react-native";
+import {Alert, Image, SafeAreaView, View} from "react-native";
 import NextButton from "../../components/NextButton";
 import StyledTextInput from "../../components/StyledTextInput";
-import { useState } from "react";
-import { ParamListBase, useNavigation, useRoute } from "@react-navigation/native";
+import React, { useState } from "react";
+import {ParamListBase, RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import auth from '@react-native-firebase/auth';
 import SCREENS from "../index";
+import firestore from '@react-native-firebase/firestore';
 
 const ProfileCreationScreen = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-    
+
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
+    const password = '12345678';
 
     const user = auth().currentUser;
 
     const handleProfileDetailsSubmit = async () => {
         try {
-            await user?.updateProfile({
-                displayName: `${firstName} ${lastName}`
-            });
-            await user?.updateEmail(email);
-            /* After saving details, navigate to Dashboard */
-            navigation.navigate(SCREENS.EMAIL);
+            if (user) {
+                const credential = auth.EmailAuthProvider.credential(email, password);
 
+                try {
+                    // Link the email/password provider
+                    await user.linkWithCredential(credential);
+                    console.log('Email linked successfully');
+
+                    // Send verification email
+                    await user.sendEmailVerification();
+                    console.log('Verification email sent');
+                } catch (error) {
+                    console.error('Error linking email or sending verification email:', error);
+                    // Alert.alert('Error', error.message);
+                }
+            } else {
+                console.log('No user is signed in.');
+                Alert.alert('Error', 'No user is signed in.');
+            }
+            await firestore()
+                .collection("users")
+                .add({
+                    firstname: firstName,
+                    lastname: lastName,
+                    email: email,
+                    phoneNumber: user?.phoneNumber,
+                })
+            navigation.navigate(SCREENS.EMAIL);
         } catch (error) {
             console.log("Error saving details: ", error);
         }
