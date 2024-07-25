@@ -1,17 +1,21 @@
 import {Alert, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
-import {useEffect, useState} from "react";
 import ImageSlider from "../../../components/ImageSlider";
 import RoundedButton from "../../../components/RoundedButton";
 import QuickTopUpCard from "../../../components/QuickTopUpCard";
 import {ParamListBase, useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import SCREENS from "../../index";
+import {useUser} from "../../../context/UserContext";
+import {useEffect} from "react";
 
 const HomeScreen = () => {
 
-    const [balance, setBalance] = useState('0');
-
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+    const {topUpBalance, refreshUserData} = useUser();
+
+    useEffect(() => {
+        refreshUserData();
+    }, []);
 
     function handleAddTransportPlans() {
         navigation.navigate(SCREENS.TOURPLAN);
@@ -55,7 +59,7 @@ const HomeScreen = () => {
                                 <Text className='text-3xl font-bold mb-2'>Balance</Text>
                                 <View className='flex-row items-end'>
                                     <Text className='text-base'>RS.</Text>
-                                    <Text className='text-3xl'>{balance}</Text>
+                                    <Text className='text-3xl'>{topUpBalance}</Text>
                                 </View>
                             </View>
                             <RoundedButton title='Buy' fontSize='2xl' handler={handleBuy}/>

@@ -12,7 +12,7 @@ import BackBtn from "../components/BackBtn";
 import PaymentMethodScreen from "../screens/tabs/home/PaymentMethodScreen";
 import CardPaymentScreen from "../screens/tabs/home/CardPaymentScreen";
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {AuthProvider, useAuth} from "../context/AuthContext";
+import {UserProvider} from "../context/UserContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,9 +21,6 @@ const AppNavigation = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isLoggedUser, setIsLoggedUser] = useState(false);
     const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
-    // const { user } = useAuth();
-
-    // const user = auth().currentUser;
 
     useEffect(() => {
         setTimeout(() => {
@@ -45,7 +42,7 @@ const AppNavigation = () => {
 
     return (
         <NavigationContainer>
-            <AuthProvider>
+            <UserProvider>
             {isLoading ? (
                 <LoadingScreen/>
             ) : (
@@ -152,7 +149,7 @@ const AppNavigation = () => {
                     )}
                 </Stack.Navigator>
             )}
-            </AuthProvider>
+            </UserProvider>
         </NavigationContainer>
     );
 }

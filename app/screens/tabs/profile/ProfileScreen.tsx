@@ -4,10 +4,12 @@ import {ParamListBase, useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import auth from '@react-native-firebase/auth';
 import SCREENS from "../../index";
+import {useUser} from "../../../context/UserContext";
 
 const ProfileScreen = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+    const {firstname,lastname,email} = useUser();
 
     const signOutUser = async () => {
         try {
@@ -61,15 +63,13 @@ const ProfileScreen = () => {
         );
     };
 
-    const user = auth().currentUser;
-
     return (
         <SafeAreaView className="flex-1 bg-background">
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <View className="bg-primary h-36 justify-center items-center">
                     <Image source={require('../../../../assets/images/profilePicPlaceholder.png')} className="w-24 h-24 rounded-full mt-48" />
-                    <Text className="text-primary text-2xl mt-4">{user?.displayName}</Text>
-                    <Text className="text-gray-600 m-2">{user?.email}</Text>
+                    <Text className="text-primary text-2xl mt-4">{`${firstname} ${lastname}`}</Text>
+                    <Text className="text-gray-600 m-2">{email}</Text>
                 </View>
                 <View className="px-4 mt-32">
                     <MenuItem icon={require('../../../../assets/images/profile-view-profile.png')} title="View Profile" handler={handleViewProfile}/>

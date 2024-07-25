@@ -1,6 +1,5 @@
 import {Image, Text, TouchableOpacity, View} from "react-native";
-import {useState} from "react";
-import auth from '@react-native-firebase/auth';
+import {useUser} from "../context/UserContext";
 
 interface HomeHeader {
     username: string;
@@ -8,6 +7,8 @@ interface HomeHeader {
 }
 
 const HomeHeader = (props: HomeHeader) => {
+
+    const {firstname} = useUser();
 
     const getGreeting = () => {
         const currentHour = new Date().getHours();
@@ -22,16 +23,11 @@ const HomeHeader = (props: HomeHeader) => {
         }
     };
 
-    const user = auth().currentUser;
-
-    const fullName = user?.displayName || 'Sample Name';
-    const username = fullName.split(' ')[0];
-
     return (
         <View className='flex bg-primary px-4'>
             <View className='flex-row justify-between items-center mt-12 mb-6 px-3'>
                 <View>
-                    <Text className='text-3xl text-white'>Hello {username} !</Text>
+                    <Text className='text-3xl text-white'>Hello {firstname}</Text>
                     <Text className='text-lg text-white'>{getGreeting()}</Text>
                 </View>
                 <TouchableOpacity onPress={props.notificationHandler}>
