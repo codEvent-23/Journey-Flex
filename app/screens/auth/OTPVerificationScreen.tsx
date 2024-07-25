@@ -12,12 +12,25 @@ const OTPVerificationScreen = () => {
     const [timer, setTimer] = useState<number>(30);
     const otpInput = useRef(null);
 
+    const validatePhoneNumber = (number: string): boolean => {
+        const phoneRegex = /^[0-9]{9}$/;
+        return phoneRegex.test(number);
+    };
+
     const signInWithPhoneNumber = async () => {
+        if (!validatePhoneNumber(phoneNumber)) {
+            Alert.alert("Invalid Phone Number", "Please enter a valid Sri Lankan phone number.");
+            return;
+        }
+
         try {
             const confirmation = await auth().signInWithPhoneNumber("+94" + phoneNumber);
             setConfirm(confirmation);
             setTimer(30); // Reset timer
-        } catch (error) {
+        } catch (error: any) {
+            if (error.code === 'auth/too-many-requests'){
+                Alert.alert('Security Error', 'We have blocked all requests from this device due to unusual activity. Try again later');
+            }
             console.log("Error sending code: ", error);
         }
     };
@@ -27,8 +40,10 @@ const OTPVerificationScreen = () => {
             const userCredential = await confirm?.confirm(code);
             const user = userCredential?.user;
 
-        } catch (error) {
-            Alert.alert('Invalid Code.', 'please enter the correct OTP received')
+        } catch (error: any) {
+            if (error.code === 'auth/invalid-verification-code') {
+                Alert.alert('Invalid Code.', 'please enter the correct OTP received')
+            }
             console.log("Invalid Code.", error);
         }
     }

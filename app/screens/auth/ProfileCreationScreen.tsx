@@ -19,8 +19,18 @@ const ProfileCreationScreen = () => {
 
     const user = auth().currentUser;
 
+    const validateEmail = (email: string): boolean => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
     const handleProfileDetailsSubmit = async () => {
         try {
+            if (!validateEmail(email)) {
+                Alert.alert('Invalid Email', 'Please enter a valid email address.');
+                return;
+            }
+
             if (user) {
                 const credential = auth.EmailAuthProvider.credential(email, password);
 
@@ -32,9 +42,12 @@ const ProfileCreationScreen = () => {
                     // Send verification email
                     await user.sendEmailVerification();
                     console.log('Verification email sent');
-                } catch (error) {
+                } catch (error: any) {
+                    if (error.code === 'auth/email-already-in-use'){
+                        Alert.alert('The email address is already in use by another account.', 'Please enter another email to continue');
+                        return;
+                    }
                     console.error('Error linking email or sending verification email:', error);
-                    // Alert.alert('Error', error.message);
                 }
             } else {
                 console.log('No user is signed in.');

@@ -18,9 +18,37 @@ const CardPaymentScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     const {refreshUserData} = useUser();
 
+    const validateInputs = () => {
+        if (!cardType) {
+            Alert.alert('Validation Error', 'Please select a card type.');
+            return false;
+        }
+        if (!cardNumber || cardNumber.length !== 16) {
+            Alert.alert('Validation Error', 'Please enter a valid 16-digit card number.');
+            return false;
+        }
+        if (!cvn || cvn.length !== 3) {
+            Alert.alert('Validation Error', 'Please enter a valid 3-digit CVN.');
+            return false;
+        }
+        if (!expirationMonth || !expirationYear) {
+            Alert.alert('Validation Error', 'Please select a valid expiration date.');
+            return false;
+        }
+        if (!amount || amount <= 0) {
+            Alert.alert('Validation Error', 'Please enter a valid amount.');
+            return false;
+        }
+        return true;
+    };
+
     const user = auth().currentUser;
 
     const handlePayment = async () => {
+        if (!validateInputs()) {
+            return;
+        }
+
         try {
             const userQuerySnapshot = await firestore()
                 .collection("users")
