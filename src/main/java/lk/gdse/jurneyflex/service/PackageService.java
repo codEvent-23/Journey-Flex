@@ -7,4 +7,6 @@ public interface PackageService {
     String generateNextPackageId();
     void addStaticPackage(PackageDTO packageDTO);
     PackageDTO getPackageById(String id);
+
+    Object getAllStaticPackages();
 }

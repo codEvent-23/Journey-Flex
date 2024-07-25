@@ -37,6 +37,7 @@ public class CardServiceImpl implements CardService {
         if (!cardServiceDao.existsById(id)) throw new NotFoundException("Card not found");
         Optional<Card> card = cardServiceDao.findById(id);
         if (card.isPresent()) {
+            System.out.println("Card id");
             Card card1 = card.get();
             CardDTO cardDTO = new CardDTO();
             cardDTO.setCustId(card1.getCustomer().getCustId());

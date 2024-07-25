@@ -2,15 +2,14 @@ package lk.gdse.jurneyflex.entity;
 
 import jakarta.persistence.*;
 import lk.gdse.jurneyflex.enumz.CardStatus;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "card")
 public class Card implements SuperEntity{

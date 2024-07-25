@@ -19,6 +19,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Amil Srinath
@@ -93,6 +96,21 @@ public class PackageServiceImpl implements PackageService {
         }
         return convert.packagetoPackageDto(packageServiceDao.findById(id).orElse(null));
     }
+
+    @Override
+    public Object getAllStaticPackages() {
+        List<Package> packages = packageServiceDao.findAll();
+        List<PackageDTO> packagesDTOs = new ArrayList<>();
+
+        for (Package package1 : packages) {
+            if (package1.getPackageType().equals(PackageType.STATIC_PACKAGE)) {
+                packagesDTOs.add(convert.packagetoPackageDto(package1));
+            }
+        }
+        return packagesDTOs;
+    }
+
+
 
 }
 

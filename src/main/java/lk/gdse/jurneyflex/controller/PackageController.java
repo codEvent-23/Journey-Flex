@@ -5,6 +5,7 @@ import lk.gdse.jurneyflex.dto.PackageDTO;
 import lk.gdse.jurneyflex.service.PackageDetailsService;
 import lk.gdse.jurneyflex.service.PackageService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +47,15 @@ public class PackageController {
     public ResponseEntity deactivatePackage(@RequestParam String packId, @RequestParam String custId) {
         packageDetailsService.deactivatePackageBeforeMidnight(packId, custId);
         return ResponseEntity.ok("Package deactivated successfully before midnight");
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getAllStaticPackages() {
+        return ResponseEntity.ok(packageService.getAllStaticPackages());
+    }
+
+    @GetMapping("/getPackageByCustId")
+    public ResponseEntity<?> getPackageByCustId(@RequestParam String custId) {
+        return ResponseEntity.ok(packageDetailsService.getPackageByCustId(custId));
     }
 }

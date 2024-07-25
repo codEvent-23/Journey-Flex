@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -131,6 +132,18 @@ public class PackageDetailsServiceImpl implements PackageDetailsService {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<PackageDTO> getPackageByCustId(String custId) {
+        List<PackageDetails> packageDetailsList = packageDetailsServiceDao.findAll();
+        List<PackageDTO> packageDtoList = new ArrayList<>();
+        for (PackageDetails packageDetails : packageDetailsList) {
+            if (packageDetails.getCustomer().getCustId().equals(custId)) {
+                packageDtoList.add(packageService.getPackageById(packageDetails.getPackages().getPackId()));
+            }
+        }
+        return packageDtoList;
     }
 
     private String sendExpiredPackagesNotification(Customer customer) {
