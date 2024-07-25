@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import { Image, SafeAreaView, Text, View, TouchableOpacity, Alert } from "react-native";
 import ProfileDetailItem from "../../../components/ProfileDetailItem";
-import auth from '@react-native-firebase/auth';
 import { launchImageLibrary } from 'react-native-image-picker';
+import {useUser} from "../../../context/UserContext";
 
 const ViewProfileScreen = () => {
-    const user = auth().currentUser;
     const [profilePic, setProfilePic] = useState(require('../../../../assets/images/profilePicPlaceholder.png'));
-
-    const userName = user?.displayName || 'Sample Name';
-    const email = user?.email || 'sample@mail.com';
-    const phoneNumber = user?.phoneNumber || '0342280266';
+    const {firstname,lastname, phoneNumber, email} = useUser();
 
     const selectImage = () => {
         const options = {
@@ -41,7 +37,7 @@ const ViewProfileScreen = () => {
             </View>
             <View className='mt-16 px-8'>
                 <Text className='text-primary text-2xl'>Your Info</Text>
-                <ProfileDetailItem title='Full Name' value={userName}/>
+                <ProfileDetailItem title='Full Name' value={`${firstname} ${lastname}`}/>
                 <ProfileDetailItem title='Email Address' value={email}/>
                 <ProfileDetailItem title='Mobile Number' value={phoneNumber}/>
                 <ProfileDetailItem title='Additional Settings' value='Account'/>
