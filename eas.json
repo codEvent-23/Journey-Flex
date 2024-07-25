@@ -5,7 +5,10 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "GOOGLE_MAPS_APIKEY": "AIzaSyBJJO6ItKf3NtmSqMG-Qyr_AgznqLZOc3c"
+      }
     },
     "preview": {
       "distribution": "internal"

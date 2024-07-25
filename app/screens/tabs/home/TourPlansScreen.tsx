@@ -1,13 +1,55 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import TourPlanCard from "../../../components/TourPlanCard";
 import {ParamListBase, useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import SCREENS from "../../index";
+import firestore from "@react-native-firebase/firestore";
+import auth from "@react-native-firebase/auth";
 
 const TourPlansScreen = () => {
     const [activeButton, setActiveButton] = useState<string>('available');
+    const [activatedPackages, setActivatedPackages] = useState([]);
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+    const user = auth().currentUser;
+
+    const getPackagesPurchasedByUserId = async (userId: any) => {
+        try {
+            // Step 1: Fetch all package purchases by the user
+            const purchaseSnapshot = await firestore()
+                .collection("packagePurchase")
+                .where("userId", "==", userId)
+                .get();
+
+            const purchases = purchaseSnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+
+            // Step 2: Fetch package details for each purchase
+            const packageDetailsPromises = purchases.map(async purchase => {
+                const packageSnapshot = await firestore()
+                    .collection("highwayPackages")
+                    .doc(purchase.packageId)
+                    .get();
+
+                return {
+                    purchaseId: purchase.id,
+                    purchaseDate: purchase.date,
+                    packageId: purchase.packageId,
+                    packageDetails: packageSnapshot.data(),
+                };
+            });
+
+            // Wait for all package details to be fetched
+            const packagesWithDetails = await Promise.all(packageDetailsPromises);
+
+            return packagesWithDetails;
+        } catch (error) {
+            console.error("Error fetching purchases and package details: ", error);
+            throw error;
+        }
+    };
 
     const handlePress = (button: string) => {
         setActiveButton(button);
@@ -20,6 +62,15 @@ const TourPlansScreen = () => {
     function handleHighwayPress() {
         navigation.navigate(SCREENS.HIGHWAY);
     }
+
+    useEffect(() => {
+        getPackagesPurchasedByUserId(user?.uid).then(packages => {
+            setActivatedPackages(packages)
+            console.log("Packages purchased by user: ", packages);
+        }).catch(error => {
+            console.error("Error: ", error);
+        });
+    }, []);
 
     return (
         <SafeAreaView className='bg-background w-full h-full px-6'>
@@ -52,9 +103,12 @@ const TourPlansScreen = () => {
                                 <TourPlanCard title='Custom Pacakge' subText='Package Details' handler={handleCustomPress}/>
                             </>
                         ) : (
-                            <>
-                                <TourPlanCard title='Kalutara - Panadura' subText='3 days'/>
-                            </>
+                            activatedPackages.map((value, index) => (
+                                <TourPlanCard
+                                    key={index}
+                                    title={`${value.packageDetails.startingLocation} - ${value.packageDetails.destination}`}
+                                    subText={`${value.packageDetails.activeTime} days`}/>
+                            ))
                         )
                     }
 

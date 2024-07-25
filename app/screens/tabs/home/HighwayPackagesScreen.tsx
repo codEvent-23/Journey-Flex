@@ -1,22 +1,67 @@
-import {Image, SafeAreaView, ScrollView, TextInput, TouchableOpacity, View, Text} from "react-native";
+import {Image, SafeAreaView, ScrollView, TextInput, TouchableOpacity, View, Text, Alert} from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import HighwayPackage from "../../../interfaces/HighwayPackage";
 import HighwayPackageCard from "../../../components/HighwayPackageCard";
+import firestore from "@react-native-firebase/firestore";
+import {useUser} from "../../../context/UserContext";
+import auth from "@react-native-firebase/auth";
 
 
 const HighwayPackagesScreen = () => {
 
-    const [highwayPackages, setHighwayPackages] = useState<HighwayPackage[]>([
-        {
-            startingLocation: 'Panadura',
-            destination: 'Maharagama',
-            duration: 45,
-            distance: 35,
-            price: 200,
-            activeTime: 30
+    const [highwayPackages, setHighwayPackages] = useState<HighwayPackage[]>([]);
+    const {topUpBalance, refreshUserData} = useUser();
+    const user = auth().currentUser;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const snapshot = await firestore().collection('highwayPackages').get();
+                const documents = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+                // @ts-ignore
+                setHighwayPackages(documents);
+            } catch (error) {
+                console.error('Error fetching data: ', error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    const savePurchase = async (highwayPackage: HighwayPackage) => {
+        const userQuerySnapshot = await firestore()
+            .collection("users")
+            .where("userId", "==", user?.uid)
+            .get();
+
+        if (!userQuerySnapshot.empty) {
+            const userDoc = userQuerySnapshot.docs[0];
+            const userData = userDoc.data();
+
+            const newTopUpBalance = userData.topUpBalance - highwayPackage.price;
+
+            await firestore()
+                .collection("users")
+                .doc(userDoc.id)
+                .update({
+                    topUpBalance: newTopUpBalance
+                });
+
+            await firestore()
+                .collection("packagePurchase")
+                .add({
+                    packageId: highwayPackage.id,
+                    userId: user?.uid,
+                    date: firestore.Timestamp.fromDate(new Date())
+                })
+            refreshUserData();
+
+            Alert.alert('Activation Successful', 'You have successfully activated the package.');
+        } else {
+            console.log('No user found with this userId');
+            Alert.alert('Activation Failed', 'User not found.');
         }
-    ]);
+    }
 
     return (
         <KeyboardAwareScrollView style={{flex: 1}}>
@@ -32,12 +77,31 @@ const HighwayPackagesScreen = () => {
                         highwayPackages?.map((highwayPackage, index) => (
                             <HighwayPackageCard
                                 key={index}
-                                startingLocation={highwayPackage.startingLocation}
-                                destination={highwayPackage.destination}
-                                duration={highwayPackage.duration}
-                                distance={highwayPackage.distance}
-                                price={highwayPackage.price}
-                                activeTime={highwayPackage.activeTime}
+                                data={highwayPackage}
+                                handler={() => {
+                                    if (topUpBalance >= highwayPackage.price) {
+                                        Alert.alert(
+                                            'Activation Confirmation',
+                                            'Are you sure you want to activate?',
+                                            [
+                                                {
+                                                    text: 'Cancel',
+                                                    onPress: () => console.log('Activation cancelled'),
+                                                    style: 'cancel',
+                                                },
+                                                {
+                                                    text: 'Activate',
+                                                    onPress: async () => {
+                                                        await savePurchase(highwayPackage);
+                                                    },
+                                                },
+                                            ],
+                                            { cancelable: false }
+                                        );
+                                    } else {
+                                        Alert.alert('Invalid Balance', 'please recharge your account to activate this package.');
+                                    }
+                                }}
                             />
                         ))
 

@@ -1,4 +1,5 @@
 interface HighwayPackage {
+    id: string;
     startingLocation: string;
     destination: string;
     duration: number;
