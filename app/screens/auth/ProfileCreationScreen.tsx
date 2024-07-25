@@ -43,10 +43,12 @@ const ProfileCreationScreen = () => {
             await firestore()
                 .collection("users")
                 .add({
+                    userId: user?.uid,
                     firstname: firstName,
                     lastname: lastName,
                     email: email,
                     phoneNumber: user?.phoneNumber,
+                    topUpBalance: 0
                 })
             navigation.navigate(SCREENS.EMAIL);
         } catch (error) {

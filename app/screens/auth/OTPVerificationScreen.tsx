@@ -1,4 +1,4 @@
-import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import {SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert} from 'react-native';
 import NextButton from "../../components/NextButton";
 import OTPTextInput from "react-native-otp-textinput";
 import React, { useState, useEffect, useRef } from 'react';
@@ -27,27 +27,8 @@ const OTPVerificationScreen = () => {
             const userCredential = await confirm?.confirm(code);
             const user = userCredential?.user;
 
-            // const userQuerySnapshot = await firestore()
-            //     .collection('users')
-            //     .where('phoneNumber', '==', phoneNumber)
-            //     .get();
-            // if (!userQuerySnapshot.empty) {
-            //     const userDoc = userQuerySnapshot.docs[0];
-            //     console.log('User data:', userDoc.data());
-            //
-            //     // if (userDoc.exists) {
-            //     //     /* User is existing, navigate to Dashboard*/
-            //     //     navigation.navigate(SCREENS.TABS);
-            //     // } else {
-            //     //     /* User is new, navigate to Details Page*/
-            //     //     navigation.navigate(SCREENS.PROFILECREATION, {phoneNumber: phoneNumber});
-            //     // }
-            // } else {
-            //     console.log('No user found with this phone number');
-            //     return null;
-            // }
-
         } catch (error) {
+            Alert.alert('Invalid Code.', 'please enter the correct OTP received')
             console.log("Invalid Code.", error);
         }
     }
