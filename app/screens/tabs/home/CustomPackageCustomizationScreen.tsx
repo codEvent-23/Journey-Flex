@@ -6,6 +6,7 @@ import RadioGroup, {RadioButtonProps} from 'react-native-radio-buttons-group';
 import MapViewDirections from 'react-native-maps-directions';
 import LocationInput from "../../../components/LocationInput";
 import {GOOGLE_MAPS_APIKEY} from "@env";
+import {PROVIDER_GOOGLE} from "react-native-maps"
 import SCREENS from "../../index";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {RootStackParamList} from "../../../navigation/HomeStackNavigation";
@@ -25,6 +26,8 @@ const CustomPackageCustomizationScreen:React.FC<Props> = ({navigation}) => {
     const [routesCount, setRoutesCount] = useState<string | null>(null);
     const [travelDistance, setTravelDistance] = useState<number | null>(null);
     const mapRef = useRef<MapView>(null);
+
+    console.log(PROVIDER_GOOGLE)
 
     useEffect(() => {
         if (!startingLocation || !destination) return;
@@ -51,7 +54,7 @@ const CustomPackageCustomizationScreen:React.FC<Props> = ({navigation}) => {
             }
         }
         getTravelDistance();
-    }, [startingLocation, destination, GOOGLE_MAPS_APIKEY]);
+    }, [startingLocation, destination, PROVIDER_GOOGLE]);
 
     useEffect(() => {
         if (startingLocation && destination && routesCount && travelDistance !== null && busType !== undefined) {
@@ -104,8 +107,8 @@ const CustomPackageCustomizationScreen:React.FC<Props> = ({navigation}) => {
             <MapView
                 ref={mapRef}
                 initialRegion={initialRegion}
-                mapType='mutedStandard'
                 className='flex-1 w-full h-full'
+                provider={PROVIDER_GOOGLE}
             >
                 {startingLocation && (
                     <Marker

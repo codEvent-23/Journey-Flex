@@ -6,6 +6,7 @@ import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import SCREENS from "../../index";
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
+import {ActivityIndicator} from "nativewind/dist/preflight";
 
 const TourPlansScreen = () => {
     const [activeButton, setActiveButton] = useState<string>('available');
@@ -28,16 +29,30 @@ const TourPlansScreen = () => {
 
             // Step 2: Fetch package details for each purchase
             const packageDetailsPromises = purchases.map(async purchase => {
-                const packageSnapshot = await firestore()
+                const highwayPackageData = await firestore()
                     .collection("highwayPackages")
                     .doc(purchase.packageId)
                     .get();
+
+                if (!highwayPackageData.exists){
+                    const customPackageData = await firestore()
+                        .collection("customPackages")
+                        .doc(purchase.packageId)
+                        .get();
+
+                    return {
+                        purchaseId: purchase.id,
+                        purchaseDate: purchase.date,
+                        packageId: purchase.packageId,
+                        packageDetails: customPackageData.data(),
+                    };
+                }
 
                 return {
                     purchaseId: purchase.id,
                     purchaseDate: purchase.date,
                     packageId: purchase.packageId,
-                    packageDetails: packageSnapshot.data(),
+                    packageDetails: highwayPackageData.data(),
                 };
             });
 
@@ -103,12 +118,19 @@ const TourPlansScreen = () => {
                                 <TourPlanCard title='Custom Pacakge' subText='Package Details' handler={handleCustomPress}/>
                             </>
                         ) : (
-                            activatedPackages.map((value, index) => (
-                                <TourPlanCard
-                                    key={index}
-                                    title={`${value.packageDetails.startingLocation} - ${value.packageDetails.destination}`}
-                                    subText={`${value.packageDetails.activeTime} days`}/>
-                            ))
+                            activatedPackages.length === 0 ?
+                                activatedPackages.map((value, index) => (
+                                    <TourPlanCard
+                                        key={index}
+                                        title={`${value.packageDetails.startingLocation} - ${value.packageDetails.destination}`}
+                                        subText={`${value.packageDetails.activeTime} days`}/>
+                                ))
+
+                                :
+
+                                <View className='w-full h-full flex justify-center items-center'>
+                                    <Text>No Activated tours</Text>
+                                </View>
                         )
                     }
 

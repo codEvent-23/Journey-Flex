@@ -1,6 +1,7 @@
 import {Image, View} from "react-native";
 import {GooglePlaceData, GooglePlaceDetail, GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
 import {GOOGLE_MAPS_APIKEY} from "@env";
+import {PROVIDER_GOOGLE} from "react-native-maps"
 
 interface LocationInputProps {
     placeholder: string;
@@ -15,6 +16,7 @@ const LocationInput = (props: LocationInputProps) => {
             <GooglePlacesAutocomplete
                 placeholder={props.placeholder}
                 onPress={props.onPressHandler}
+                onFail={(data) => {console.log(data)}}
                 fetchDetails={true}
                 nearbyPlacesAPI='GooglePlacesSearch'
                 enablePoweredByContainer={false}

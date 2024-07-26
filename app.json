@@ -2,33 +2,44 @@
   "expo": {
     "name": "Journey-Flex",
     "slug": "Journey-Flex",
-    "plugins": ["@react-native-firebase/app", "@react-native-firebase/auth"],
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon-new.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/splash-new.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/images/splash_2.png",
+      "resizeMode": "cover"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "splash": {
+        "image": "./assets/images/splash_2.png",
+        "resizeMode": "cover"
+      },
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon-new.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.codeventlk.JourneyFlex"
+      "package": "com.codeventlk.JourneyFlex",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBJJO6ItKf3NtmSqMG-Qyr_AgznqLZOc3c"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "0bd9755f-a9a9-4109-9e05-dd171d0b9c50"
+        "projectId": "f7ce10d8-ff3b-47cd-b203-f6ac385c38fb"
       }
     }
   }
